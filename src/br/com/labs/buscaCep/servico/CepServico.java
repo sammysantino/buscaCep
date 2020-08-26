@@ -6,7 +6,6 @@ import br.com.labs.buscaCep.servico.exception.ServicoException;
 import br.com.labs.buscaCep.util.Util;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import org.tukaani.xz.SingleXZInputStream;
 
 @Stateless
 public class CepServico {
@@ -32,7 +31,7 @@ public class CepServico {
 				String cep = Util.removerCaracteresNaoNumericos(buscaCepEnvio.getCep());
 				
 				if (cep.length() != 8) {
-					
+					retorno.setMensagemRetorno("Cep inválido.");
 				} else {
 					boolean buscar = true;
 					
