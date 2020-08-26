@@ -3,4 +3,5 @@
 .metadata/*
 .classpath
 target/*
+.settings
 
