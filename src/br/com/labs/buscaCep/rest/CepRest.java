@@ -12,8 +12,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/labs")
-public class VendaIntegracaoRest extends BaseRest implements Serializable {
+@Path("/cep")
+public class CepRest extends BaseRest implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class VendaIntegracaoRest extends BaseRest implements Serializable {
 	private CepServico cepServico;
 	
 	@POST
-	@Path("buscarCep")
+	@Path("buscar")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response inserirFixo(BuscaCepEnvio buscaCepEnvio, @Context HttpServletRequest request) {
@@ -31,7 +31,7 @@ public class VendaIntegracaoRest extends BaseRest implements Serializable {
 //			System.out.println(Util.objectToJson(vendaIntegracao));
 //			System.out.println(Util.objectToJsonComChave(vendaIntegracao));
 			
-			BuscaCepRetorno retorno = cepServico.buscarCep(buscaCepEnvio);
+			BuscaCepRetorno retorno = cepServico.buscar(buscaCepEnvio);
 			
 			getLog().info("FIM BUSCAR CEP ");
 			return Response.ok(retorno).build();
