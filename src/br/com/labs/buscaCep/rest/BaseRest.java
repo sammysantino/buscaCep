@@ -1,6 +1,6 @@
 package br.com.labs.buscaCep.rest;
 
-import br.com.labs.buscaCep.componente.ConfiguracaoApplication;
+import br.com.labs.buscaCep.aplicacao.Aplicacao;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
@@ -11,7 +11,7 @@ public class BaseRest {
 	private transient Logger log;
 	
 	@Inject
-	private ConfiguracaoApplication configuracaoApplication;
+	private Aplicacao configuracaoApplication;
 	
 	protected void logInfoRequest(HttpServletRequest request) {
 		StringBuilder sbLog = montarMensagem(request);
@@ -37,7 +37,7 @@ public class BaseRest {
 		return log;
 	}
 	
-	public ConfiguracaoApplication getConfiguracaoApplication() {
+	public Aplicacao getConfiguracaoApplication() {
 		return configuracaoApplication;
 	}
 }

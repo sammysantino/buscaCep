@@ -12,23 +12,28 @@ import lombok.Setter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BuscaCepEnvio implements Serializable {
-
+public class BaseRetorno implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "login")
-	@Getter @Setter private String login;
+	@XmlElement(name = "codigo_retorno")
+	@Getter @Setter private String codigoRetorno;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "senha")
-	@Getter @Setter private String senha;
+	@XmlElement(name = "mensagem_retorno")
+	@Getter @Setter private String mensagemRetorno;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "cep")
-	@Getter @Setter private String cep;
+	@XmlElement(name = "data_processamento")
+	@Getter @Setter private String dataProcessamento;
 
-	public BuscaCepEnvio() {
+	public BaseRetorno() {
 		
+	}
+	
+	public BaseRetorno(String codigoRetorno, String mensagemRetorno) {
+		this.codigoRetorno = codigoRetorno;
+		this.mensagemRetorno = mensagemRetorno;
 	}
 }
