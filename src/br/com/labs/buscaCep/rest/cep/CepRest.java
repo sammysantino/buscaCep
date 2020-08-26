@@ -33,7 +33,7 @@ public class CepRest extends BaseRest implements Serializable {
 //			System.out.println(Util.objectToJson(vendaIntegracao));
 //			System.out.println(Util.objectToJsonComChave(vendaIntegracao));
 			
-			BuscaCepRetorno retorno = cepServico.buscar(buscaCepEnvio);
+			BuscaCepRetorno retorno = cepServico.buscarPorCep(buscaCepEnvio);
 			
 			getLog().info("FIM BUSCAR CEP ");
 			return Response.ok(retorno).build();

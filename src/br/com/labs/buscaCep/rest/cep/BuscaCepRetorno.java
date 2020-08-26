@@ -1,5 +1,6 @@
 package br.com.labs.buscaCep.rest.cep;
 
+import br.com.labs.buscaCep.pojo.Endereco;
 import br.com.labs.buscaCep.rest.BaseRetorno;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -18,21 +19,9 @@ public class BuscaCepRetorno extends BaseRetorno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "rua")
-	@Getter @Setter private String rua;
+	@XmlElement(name = "endereco")
+	@Getter @Setter private Endereco endereco;
 	
-	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "bairro")
-	@Getter @Setter private String bairro;
-	
-	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "cidade")
-	@Getter @Setter private String cidade;
-	
-	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "estado")
-	@Getter @Setter private String estado;
-
 	public BuscaCepRetorno() {
 		
 	}

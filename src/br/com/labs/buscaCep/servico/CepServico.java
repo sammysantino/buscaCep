@@ -20,7 +20,7 @@ public class CepServico extends BaseServico {
 	@EJB
 	private CredencialServico credencialServico;
 
-	public BuscaCepRetorno buscar(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
+	public BuscaCepRetorno buscarPorCep(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
 		try {
 			BuscaCepRetorno retorno = new BuscaCepRetorno();
 			
@@ -57,6 +57,9 @@ public class CepServico extends BaseServico {
 								cep = String.valueOf(numeros);
 	 						}
 						} else {
+							retorno.setCodigoRetorno(ECodigoRetorno.SUCESSO.getDescricao());
+							retorno.setMensagemRetorno("Endereço localizado.");
+							retorno.setEndereco(endereco);
 							buscar = false;
 						}
 					}
