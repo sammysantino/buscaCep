@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.rest.cep;
+package br.com.labs.buscaCep.rest.cep;
 
 public enum ETipoBuscaCep {
 	MOCK,

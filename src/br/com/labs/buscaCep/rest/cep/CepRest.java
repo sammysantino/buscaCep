@@ -1,10 +1,10 @@
-package br.com.labs.buscacep.rest.cep;
+package br.com.labs.buscaCep.rest.cep;
 
-import br.com.labs.buscacep.rest.BaseRest;
-import br.com.labs.buscacep.rest.ECodigoRetorno;
-import br.com.labs.buscacep.servico.EnderecoServico;
-import br.com.labs.buscacep.util.Constantes;
-import br.com.labs.buscacep.util.Util;
+import br.com.labs.buscaCep.rest.BaseRest;
+import br.com.labs.buscaCep.rest.ECodigoRetorno;
+import br.com.labs.buscaCep.servico.EnderecoServico;
+import br.com.labs.buscaCep.util.Constantes;
+import br.com.labs.buscaCep.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;

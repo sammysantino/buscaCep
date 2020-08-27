@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.util;
+package br.com.labs.buscaCep.util;
 
 public final class Constantes {
 	

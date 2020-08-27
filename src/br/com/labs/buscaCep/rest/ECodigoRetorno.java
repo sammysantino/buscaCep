@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.rest;
+package br.com.labs.buscaCep.rest;
 
 import lombok.Getter;
 

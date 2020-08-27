@@ -1,6 +1,6 @@
-package br.com.labs.buscacep.servico;
+package br.com.labs.buscaCep.servico;
 
-import br.com.labs.buscacep.aplicacao.Aplicacao;
+import br.com.labs.buscaCep.aplicacao.Aplicacao;
 import java.io.Serializable;
 import javax.inject.Inject;
 import org.slf4j.Logger;

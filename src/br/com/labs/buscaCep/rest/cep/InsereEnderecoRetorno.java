@@ -1,6 +1,6 @@
-package br.com.labs.buscacep.rest.cep;
+package br.com.labs.buscaCep.rest.cep;
 
-import br.com.labs.buscacep.rest.BaseRetorno;
+import br.com.labs.buscaCep.rest.BaseRetorno;
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

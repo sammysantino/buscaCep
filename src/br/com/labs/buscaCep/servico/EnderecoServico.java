@@ -1,14 +1,14 @@
-package br.com.labs.buscacep.servico;
+package br.com.labs.buscaCep.servico;
 
-import br.com.labs.buscacep.pojo.Endereco;
-import br.com.labs.buscacep.rest.ECodigoRetorno;
-import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
-import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
-import br.com.labs.buscacep.rest.cep.InsereEnderecoEnvio;
-import br.com.labs.buscacep.rest.cep.InsereEnderecoRetorno;
-import br.com.labs.buscacep.servico.exception.ServicoException;
-import br.com.labs.buscacep.util.Constantes;
-import br.com.labs.buscacep.util.Util;
+import br.com.labs.buscaCep.pojo.Endereco;
+import br.com.labs.buscaCep.rest.ECodigoRetorno;
+import br.com.labs.buscaCep.rest.cep.BuscaCepEnvio;
+import br.com.labs.buscaCep.rest.cep.BuscaCepRetorno;
+import br.com.labs.buscaCep.rest.cep.InsereEnderecoEnvio;
+import br.com.labs.buscaCep.rest.cep.InsereEnderecoRetorno;
+import br.com.labs.buscaCep.servico.exception.ServicoException;
+import br.com.labs.buscaCep.util.Constantes;
+import br.com.labs.buscaCep.util.Util;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 

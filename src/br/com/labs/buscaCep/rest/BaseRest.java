@@ -1,6 +1,6 @@
-package br.com.labs.buscacep.rest;
+package br.com.labs.buscaCep.rest;
 
-import br.com.labs.buscacep.aplicacao.Aplicacao;
+import br.com.labs.buscaCep.aplicacao.Aplicacao;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

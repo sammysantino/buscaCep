@@ -1,7 +1,7 @@
-package br.com.labs.buscacep.aplicacao;
+package br.com.labs.buscaCep.aplicacao;
 
-import br.com.labs.buscacep.pojo.Credencial;
-import br.com.labs.buscacep.pojo.Endereco;
+import br.com.labs.buscaCep.pojo.Credencial;
+import br.com.labs.buscaCep.pojo.Endereco;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

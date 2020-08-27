@@ -1,6 +1,6 @@
-package br.com.labs.buscacep.servico;
+package br.com.labs.buscaCep.servico;
 
-import br.com.labs.buscacep.servico.exception.ServicoException;
+import br.com.labs.buscaCep.servico.exception.ServicoException;
 import javax.ejb.Stateless;
 
 @Stateless

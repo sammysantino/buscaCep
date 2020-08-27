@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.aplicacao;
+package br.com.labs.buscaCep.aplicacao;
 
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
