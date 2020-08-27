@@ -32,7 +32,7 @@ public class EnderecoServico extends BaseServico {
 			} else {
 				mensagem.append(credencialServico.autenticar(buscaCepEnvio.getLogin(), buscaCepEnvio.getSenha()));
 			
-				if (Util.isEmpty(buscaCepEnvio.getCep())) {
+				if (Util.isNullOrEmpty(buscaCepEnvio.getCep())) {
 					mensagem.append("Cep é obrigatório. ");
 				} else  {
 					cep = Util.removerCaracteresNaoNumericos(buscaCepEnvio.getCep());
@@ -53,17 +53,10 @@ public class EnderecoServico extends BaseServico {
 					if (endereco == null) {
 						if (Constantes.CEP_SOMENTE_ZEROS.equals(cep)) {
 							buscar = false;
-							mensagem.append("Endereço não localizado para o CEP ")
+							mensagem.append("Endereço não localizado. CEP ")
 									.append(buscaCepEnvio.getCep());
 						} else {
-							char[] numeros = cep.toCharArray();
-							for (int i = 7; i >= 0; i--) {
-								if (numeros[i] != Constantes.CHAR_ZERO) {
-									numeros[i] = Constantes.CHAR_ZERO;
-									break;
-								}
- 							}
-							cep = String.valueOf(numeros);
+							cep = Util.substituirUltimoPorZero(cep);
  						}
 					} else {
 						buscar = false;
@@ -99,19 +92,19 @@ public class EnderecoServico extends BaseServico {
 			
 			validacao.append(credencialServico.autenticar(insereEnderecoEnvio.getLogin(), insereEnderecoEnvio.getSenha()));
 
-			if (Util.isEmpty(insereEnderecoEnvio.getEndereco().getCep())) {
+			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getCep())) {
 				validacao.append("Cep é obrigatório. ");
 			} 
-			if (Util.isEmpty(insereEnderecoEnvio.getEndereco().getRua())) {
+			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getRua())) {
 				validacao.append("Rua é obrigatória. ");
 			} 
-			if (Util.isEmpty(insereEnderecoEnvio.getEndereco().getBairro())) {
+			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getBairro())) {
 				validacao.append("Bairro é obrigatório. ");
 			} 
-			if (Util.isEmpty(insereEnderecoEnvio.getEndereco().getCidade())) {
+			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getCidade())) {
 				validacao.append("Cidade é obrigatória. ");
 			} 
-			if (Util.isEmpty(insereEnderecoEnvio.getEndereco().getEstado())) {
+			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getEstado())) {
 				validacao.append("Estado é obrigatório. ");
 			} 
 			if (validacao.toString().isEmpty()) {

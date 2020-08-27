@@ -19,7 +19,7 @@ public final class Util {
 		return value;
 	}
 
-	public static boolean isEmpty(String value) {
+	public static boolean isNullOrEmpty(String value) {
 		return value == null || value.replaceAll(" ", "").isEmpty();
 	}
 	
@@ -49,6 +49,32 @@ public final class Util {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.writeValueAsString(object);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * substitui o ultimo caractere != 0 por 0
+	 * @param texto
+	 * @return 
+	 */
+	public static String substituirUltimoPorZero(String texto) {
+		try {
+			String retorno = "";
+			if (!isNullOrEmpty(texto)) {
+				int lastIndex = texto.length() - 1;
+				char[] caracteres = texto.toCharArray();
+				
+				for (int i = lastIndex; i >= 0; i--) {
+					if (caracteres[i] != Constantes.CHAR_ZERO) {
+						caracteres[i] = Constantes.CHAR_ZERO;
+						break;
+					}
+				}
+				retorno = String.valueOf(caracteres);
+			}
+			return retorno;
 		} catch (Exception e) {
 			throw e;
 		}
