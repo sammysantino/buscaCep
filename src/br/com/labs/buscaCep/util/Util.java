@@ -1,9 +1,5 @@
 package br.com.labs.buscaCep.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public final class Util {
@@ -13,10 +9,12 @@ public final class Util {
 	}
 	
 	public static String removerCaracteresNaoNumericos(String value) {
-		if (value != null) {
-			value = value.replaceAll("[^\\d]", "").trim();
-			value = value.replaceAll("\\+", "");
+		if (value == null) {
+			value = "";
 		}
+		
+		value = value.replaceAll("[^\\d]", "").trim();
+		value = value.replaceAll("\\+", "");
 		return value;
 	}
 

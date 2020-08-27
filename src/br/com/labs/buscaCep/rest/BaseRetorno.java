@@ -24,10 +24,6 @@ public class BaseRetorno implements Serializable {
 	@XmlElement(name = "mensagem_retorno")
 	@Getter @Setter private String mensagemRetorno;
 
-	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "data_processamento")
-	@Getter @Setter private String dataProcessamento;
-
 	public BaseRetorno() {
 		
 	}

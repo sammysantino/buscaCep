@@ -36,4 +36,8 @@ public class Endereco implements Serializable {
 	@XmlElement(name = "estado")
 	@Getter @Setter private String estado;
 	
+	public Endereco() {
+		
+	}
+	
 }

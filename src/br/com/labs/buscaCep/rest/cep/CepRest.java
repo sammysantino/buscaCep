@@ -2,7 +2,7 @@ package br.com.labs.buscaCep.rest.cep;
 
 import br.com.labs.buscaCep.rest.BaseRest;
 import br.com.labs.buscaCep.rest.ECodigoRetorno;
-import br.com.labs.buscaCep.servico.CepServico;
+import br.com.labs.buscaCep.servico.EnderecoServico;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class CepRest extends BaseRest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private CepServico cepServico;
+	private EnderecoServico cepServico;
 	
 	@POST
 	@Path("buscar")
