@@ -13,6 +13,7 @@
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    	<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 	
 	<repositories>
@@ -51,7 +52,6 @@
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.30</version>
-		    <scope>test</scope>
 		</dependency>
 		
 		<dependency>
