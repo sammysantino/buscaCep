@@ -1,4 +1,4 @@
-package br.com.labs.buscaCep.aplicacao;
+package br.com.labs.buscacep.aplicacao;
 
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
@@ -6,7 +6,8 @@ import javax.ejb.AccessTimeout;
 import javax.ejb.Singleton;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class ProdutorLogger implements Serializable {
@@ -15,7 +16,7 @@ public class ProdutorLogger implements Serializable {
 
 	@Produces
 	@AccessTimeout(value = 60, unit = TimeUnit.SECONDS)
-	public Logger produceLog(InjectionPoint injectionPoint) {
-		return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+	public Logger getLogger(final InjectionPoint ip) {
+		return LoggerFactory.getLogger(ip.getMember().getDeclaringClass());
 	}
 }

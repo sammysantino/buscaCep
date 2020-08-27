@@ -1,4 +1,4 @@
-package br.com.labs.buscaCep.rest;
+package br.com.labs.buscacep.rest;
 
 import javax.ws.rs.core.Application;
 

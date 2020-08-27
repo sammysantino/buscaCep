@@ -1,9 +1,9 @@
-package br.com.labs.buscaCep.rest;
+package br.com.labs.buscacep.rest;
 
-import br.com.labs.buscaCep.aplicacao.Aplicacao;
+import br.com.labs.buscacep.aplicacao.Aplicacao;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 public class BaseRest {
 

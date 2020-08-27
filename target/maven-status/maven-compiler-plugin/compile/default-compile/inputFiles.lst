@@ -1,9 +1,0 @@
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/rest/BaseRest.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/rest/ECodigoRetorno.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/rest/BuscaCepEnvio.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/componente/ConfiguracaoApplication.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/rest/BuscaCepRetorno.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/rest/ApplicationPath.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/componente/ESistema.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/servico/CepServico.java
-/opt/workspace_luizalabs/buscaCepApp/src/br/com/labs/buscaCep/rest/VendaIntegracaoRest.java

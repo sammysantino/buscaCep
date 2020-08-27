@@ -1,5 +1,6 @@
-package br.com.labs.buscaCep.util;
+package br.com.labs.buscacep.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Random;
 
 public final class Util {
@@ -44,4 +45,12 @@ public final class Util {
 		}
 	}
 	
+	public static final String obterJson(Object object) throws Exception {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.writeValueAsString(object);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

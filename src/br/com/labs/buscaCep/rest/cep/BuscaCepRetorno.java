@@ -1,7 +1,7 @@
-package br.com.labs.buscaCep.rest.cep;
+package br.com.labs.buscacep.rest.cep;
 
-import br.com.labs.buscaCep.pojo.Endereco;
-import br.com.labs.buscaCep.rest.BaseRetorno;
+import br.com.labs.buscacep.pojo.Endereco;
+import br.com.labs.buscacep.rest.BaseRetorno;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;

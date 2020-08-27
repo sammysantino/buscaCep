@@ -1,8 +1,9 @@
-package br.com.labs.buscaCep.servico;
+package br.com.labs.buscacep.servico;
 
-import br.com.labs.buscaCep.aplicacao.Aplicacao;
+import br.com.labs.buscacep.aplicacao.Aplicacao;
 import java.io.Serializable;
 import javax.inject.Inject;
+import org.slf4j.Logger;
 
 public class BaseServico implements Serializable {
 
@@ -10,5 +11,8 @@ public class BaseServico implements Serializable {
 	
 	@Inject
 	protected Aplicacao aplicacao;
+	
+	@Inject
+	protected transient Logger log;
 
 }

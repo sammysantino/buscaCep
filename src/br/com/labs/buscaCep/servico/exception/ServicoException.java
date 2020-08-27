@@ -1,4 +1,4 @@
-package br.com.labs.buscaCep.servico.exception;
+package br.com.labs.buscacep.servico.exception;
 
 public class ServicoException extends Exception {
 

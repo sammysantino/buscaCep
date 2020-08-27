@@ -1,8 +1,10 @@
-package br.com.labs.buscaCep.rest.cep;
+package br.com.labs.buscacep.rest.cep;
 
-import br.com.labs.buscaCep.rest.BaseRest;
-import br.com.labs.buscaCep.rest.ECodigoRetorno;
-import br.com.labs.buscaCep.servico.EnderecoServico;
+import br.com.labs.buscacep.rest.BaseRest;
+import br.com.labs.buscacep.rest.ECodigoRetorno;
+import br.com.labs.buscacep.servico.EnderecoServico;
+import br.com.labs.buscacep.util.Constantes;
+import br.com.labs.buscacep.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ public class CepRest extends BaseRest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private EnderecoServico cepServico;
+	private EnderecoServico enderecoServico;
 	
 	@POST
 	@Path("buscar")
@@ -28,17 +30,15 @@ public class CepRest extends BaseRest implements Serializable {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response buscar(BuscaCepEnvio buscaCepEnvio, @Context HttpServletRequest request) {
 		try {
-			getLog().info("INICIO BUSCAR CEP ");
-//			System.out.println(Util.convertoToJson(vendaIntegracao));
-//			System.out.println(Util.objectToJson(vendaIntegracao));
-//			System.out.println(Util.objectToJsonComChave(vendaIntegracao));
+			getLog().info("INICIO BUSCAR CEP " + Util.obterJson(buscaCepEnvio));
 			
-			BuscaCepRetorno retorno = cepServico.buscarPorCep(buscaCepEnvio);
+			BuscaCepRetorno retorno = enderecoServico.buscarPorCep(buscaCepEnvio);
 			
-			getLog().info("FIM BUSCAR CEP ");
+			getLog().info("FIM BUSCAR CEP " + Util.obterJson(retorno));
 			return Response.ok(retorno).build();
 		} catch (Exception ec) {
 			ec.printStackTrace();
+			getLog().info("ERRO AO BUSCAR CEP " + ec.getMessage());
 			return Response.ok(new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), ec.getMessage())).build();
 		}
 	}
@@ -49,16 +49,22 @@ public class CepRest extends BaseRest implements Serializable {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response inserir(InsereEnderecoEnvio insereCepEnvio, @Context HttpServletRequest request) {
+		InsereEnderecoRetorno retorno = null;
 		try {
-			getLog().info("INICIO INSERIR CEP ");
-			
-			InsereEnderecoRetorno retorno = cepServico.inserir(insereCepEnvio);
-			
-			getLog().info("FIM INSERIR CEP ");
-			return Response.ok(retorno).build();
+			getLog().info("INICIO INSERIR CEP " + Util.obterJson(insereCepEnvio));
+			retorno = enderecoServico.inserir(insereCepEnvio);
 		} catch (Exception ec) {
 			ec.printStackTrace();
-			return Response.ok(new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), ec.getMessage())).build();
+			retorno = new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
 		}
+		
+		try {
+			getLog().info("FIM INSERIR CEP " + Util.obterJson(retorno));
+		} catch (Exception e) {
+			getLog().info("FIM INSERIR CEP " + retorno.getMensagemRetorno());
+		}
+		
+		
+		return Response.ok(retorno).build();
 	}
 }

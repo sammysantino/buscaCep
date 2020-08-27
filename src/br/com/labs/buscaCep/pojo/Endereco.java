@@ -1,4 +1,4 @@
-package br.com.labs.buscaCep.pojo;
+package br.com.labs.buscacep.pojo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
