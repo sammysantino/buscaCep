@@ -1,27 +1,29 @@
 package br.com.labs.buscacep.aplicacao;
 
-import br.com.labs.buscacep.pojo.Credencial;
+import br.com.labs.buscacep.pojo.Autorizacao;
 import br.com.labs.buscacep.pojo.Endereco;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
 
-@Named
 @ApplicationScoped
 public class Aplicacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Map<String, Endereco> enderecosPorCep;
-	private Map<String, Credencial> credenciaisPorLogin;
+	private Map<String, Autorizacao> credenciaisPorLogin;
 	
 	@PostConstruct
 	private void inicializar() {
 		enderecosPorCep = new HashMap<>();
+		Endereco endereco = new Endereco();
+		
 		credenciaisPorLogin = new HashMap<>();
+		credenciaisPorLogin.put("admin", new Autorizacao("admin", "admin", Calendar.getInstance()));
 	}
 
 	public Endereco getEnderecoPorCep(String cep) {
@@ -40,7 +42,7 @@ public class Aplicacao implements Serializable {
 		}
 	}
 	
-	public Credencial getCredencialPorLogin(String login) {
+	public Autorizacao getCredencialPorLogin(String login) {
 		try {
 			return credenciaisPorLogin.get(login);
 		} catch (Exception e) {
@@ -48,9 +50,9 @@ public class Aplicacao implements Serializable {
 		}
 	}
 	
-	public void inserirCredencialPorLogin(Credencial credencial) {
+	public void inserirCredencialPorLogin(Autorizacao autorizacao) {
 		try {
-			credenciaisPorLogin.put(credencial.getLogin(), credencial);
+			credenciaisPorLogin.put(autorizacao.getLogin(), autorizacao);
 		} catch (Exception e) {
 			throw e;
 		}

@@ -9,9 +9,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@ToString
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;

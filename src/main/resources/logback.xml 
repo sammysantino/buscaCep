@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <root level="debug">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
+
+<configuration>
+
+    <property name="HOME_LOG" value="/opt/logs/buscaCepApp.log"/>
+
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>/opt/logs/archived/buscaCepApp.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- tam max cada arquivo 10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- tamanho total de todos os arquivos, caso ultrapasse, deleta os mais antigos -->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!-- mantem 60 dias apenas -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="debug" level="debug" additivity="false">
+        <appender-ref ref="FILE-ROLLING"/>
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="FILE-ROLLING"/>
+    </root>
+
+</configuration>

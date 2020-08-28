@@ -18,8 +18,8 @@
 	
 	<repositories>
 	    <repository>
-	        <id>maven-central</id>
-			<name>maven-central</name>
+	        <id>maven-public</id>
+			<name>maven-public</name>
 			<url>https://repo1.maven.org/maven2/</url>
 			<layout>default</layout>
 	    </repository>
@@ -27,8 +27,8 @@
   
   	<distributionManagement>
 		<repository>
-			<id>maven-central</id>
-			<name>maven-central</name>
+			<id>maven-public</id>
+			<name>maven-public</name>
 			<url>https://repo1.maven.org/maven2/</url>
 			<layout>default</layout>
 		</repository>
@@ -106,5 +106,17 @@
 			<version>3.1.0</version>
 		</dependency>
 		
+		<dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.0.73-beta</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.13</version>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

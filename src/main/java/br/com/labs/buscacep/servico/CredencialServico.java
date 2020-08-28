@@ -1,6 +1,8 @@
 package br.com.labs.buscacep.servico;
 
+import br.com.labs.buscacep.pojo.Autorizacao;
 import br.com.labs.buscacep.servico.exception.ServicoException;
+import br.com.labs.buscacep.util.Util;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -12,22 +14,22 @@ public class CredencialServico  extends BaseServico  {
 		try {
 			StringBuilder validacao = new StringBuilder();
 			
-//			if (Util.isEmpty(login)) {
-//				validacao.append("Login é obrigatório. ");
-//			} 
-//
-//			if (Util.isEmpty(senha)) {
-//				validacao.append("Senha é obrigatória. ");
-//			}
-//			
-//			if (validacao.toString().isEmpty()) {
-//				Credencial credencial = aplicacao.getCredencialPorLogin(login);
-//				if (credencial == null) {
-//					validacao.append("Login não localizado. ");
-//				} else if (!senha.equals(credencial.getSenha())) {
-//					validacao.append("Senha incorreta. ");
-//				}
-//			}
+			if (Util.isNullOrEmpty(login)) {
+				validacao.append("Login é obrigatório. ");
+			} 
+
+			if (Util.isNullOrEmpty(senha)) {
+				validacao.append("Senha é obrigatória. ");
+			}
+			
+			if (validacao.toString().isEmpty()) {
+				Autorizacao credencial = aplicacao.getCredencialPorLogin(login);
+				if (credencial == null) {
+					validacao.append("Login não localizado. ");
+				} else if (!senha.equals(credencial.getSenha())) {
+					validacao.append("Senha incorreta. ");
+				}
+			}
 			
 			return validacao.toString();
 		} catch (Exception e) {

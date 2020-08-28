@@ -71,6 +71,7 @@ public class EnderecoServico extends BaseServico {
 			retorno.setCodigoRetorno(codigoRetorno.getDescricao());
 			retorno.setMensagemRetorno(mensagem.toString());
 			
+			log.info("Buscando CEP " + cep);
 			return retorno;
 		} catch (Exception e) {
 			e.printStackTrace();

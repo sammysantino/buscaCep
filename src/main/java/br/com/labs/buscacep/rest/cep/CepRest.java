@@ -31,9 +31,7 @@ public class CepRest extends BaseRest implements Serializable {
 	public Response buscar(BuscaCepEnvio buscaCepEnvio, @Context HttpServletRequest request) {
 		try {
 			getLog().info("INICIO BUSCAR CEP " + Util.obterJson(buscaCepEnvio));
-			
 			BuscaCepRetorno retorno = enderecoServico.buscarPorCep(buscaCepEnvio);
-			
 			getLog().info("FIM BUSCAR CEP " + Util.obterJson(retorno));
 			return Response.ok(retorno).build();
 		} catch (Exception ec) {

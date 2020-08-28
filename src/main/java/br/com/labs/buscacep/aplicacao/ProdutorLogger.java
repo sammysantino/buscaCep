@@ -17,6 +17,6 @@ public class ProdutorLogger implements Serializable {
 	@Produces
 	@AccessTimeout(value = 60, unit = TimeUnit.SECONDS)
 	public Logger getLogger(final InjectionPoint ip) {
-		return LoggerFactory.getLogger(ip.getMember().getDeclaringClass());
+		return LoggerFactory.getLogger(ip.getMember().getClass());
 	}
 }
