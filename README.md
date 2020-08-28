@@ -22,8 +22,6 @@ Os critérios de aceite são:
 Pra entender o projeto é bom saber:
 * Orientação a objetos com java
 * Maven
-
-E um pouco de:
 * HTTP
 * Rest / RESTful
 * Injeção de Dependências
@@ -32,7 +30,7 @@ E um pouco de:
 Para rodar o projeto você vai precisar de:
 * [JDK 8+](https://www.oracle.com/sa/java/) - Java 
 * [Eclipse](https://www.eclipse.org/) - IDE utilizada para o desenvolvimento
-* [Wildfly](https://www.wildfly.org/) - Servidor de aplicações
+* [Wildfly](https://www.wildfly.org/) - Servidor de aplicações, ou outro de sua preferência
 * [Maven](https://maven.apache.org/) - Gerenciamento de Dependências
 * [Lombok](https://projectlombok.org/) - Pra o código ficar menos verboso. É uma biblioteca, mas precisa executar o jar ou instalar o plugin para que funcione ok.
 
