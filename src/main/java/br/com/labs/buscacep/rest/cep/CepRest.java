@@ -30,9 +30,9 @@ public class CepRest extends BaseRest implements Serializable {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response buscar(BuscaCepEnvio buscaCepEnvio, @Context HttpServletRequest request) {
 		try {
-			getLog().info("INICIO BUSCAR CEP " + Util.obterJson(buscaCepEnvio));
+			getLog().info("INICIO BUSCAR CEP " + Util.getJson(buscaCepEnvio));
 			BuscaCepRetorno retorno = enderecoServico.buscarPorCep(buscaCepEnvio);
-			getLog().info("FIM BUSCAR CEP " + Util.obterJson(retorno));
+			getLog().info("FIM BUSCAR CEP " + Util.getJson(retorno));
 			return Response.ok(retorno).build();
 		} catch (Exception ec) {
 			ec.printStackTrace();
@@ -49,7 +49,7 @@ public class CepRest extends BaseRest implements Serializable {
 	public Response inserir(InsereEnderecoEnvio insereCepEnvio, @Context HttpServletRequest request) {
 		InsereEnderecoRetorno retorno = null;
 		try {
-			getLog().info("INICIO INSERIR CEP " + Util.obterJson(insereCepEnvio));
+			getLog().info("INICIO INSERIR CEP " + Util.getJson(insereCepEnvio));
 			retorno = enderecoServico.inserir(insereCepEnvio);
 		} catch (Exception ec) {
 			ec.printStackTrace();
@@ -57,7 +57,7 @@ public class CepRest extends BaseRest implements Serializable {
 		}
 		
 		try {
-			getLog().info("FIM INSERIR CEP " + Util.obterJson(retorno));
+			getLog().info("FIM INSERIR CEP " + Util.getJson(retorno));
 		} catch (Exception e) {
 			getLog().info("FIM INSERIR CEP " + retorno.getMensagemRetorno());
 		}

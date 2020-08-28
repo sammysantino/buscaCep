@@ -1,6 +1,7 @@
 package br.com.labs.buscacep.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Collection;
 import java.util.Random;
 
 public final class Util {
@@ -28,28 +29,29 @@ public final class Util {
 		return value == null || value.replaceAll(" ", "").isEmpty();
 	}
 	
+	public static boolean isNullOrEmpty(Collection collection) {
+		return collection == null || collection.isEmpty();
+	}
+	
 	
 	/**
-	 * Gera 15 caracteres embaralhados entre letras e numeros
+	 * Gera 15 caracteres embaralhados dentre letras e numeros
 	 * @return String senha
 	 */
 	public static String gerarSenha() {
 		try {
 			String caracteres = Constantes.NUMEROS 
-					+ Constantes.LETRAS_MINUSCULAS
-					+ Constantes.NUMEROS
-					+ Constantes.NUMEROS
-					+ Constantes.LETRAS_MAIUSCULAS
-					+ Constantes.NUMEROS;
-			Random random = new Random();
+								+ Constantes.LETRAS_MINUSCULAS
+								+ Constantes.NUMEROS
+								+ Constantes.NUMEROS
+								+ Constantes.LETRAS_MAIUSCULAS
+								+ Constantes.NUMEROS;
 			
 			String senha = "";
-			int ultimaPosicao = caracteres.length() - 1;
-			
 			for (int i = 0; i < 15; i++) {
-				int posicao = random.nextInt(ultimaPosicao);
-				senha = senha + caracteres.charAt(posicao);
+				senha = senha + getRandomItem(caracteres);
 			}
+			
 			caracteres = null;
 			return senha;
 		} catch (Exception e) {
@@ -57,13 +59,25 @@ public final class Util {
 		}
 	}
 	
+	public static String getRandomItem(String caracteres) {
+		String retorno = "";
+		if (!isNullOrEmpty(caracteres)) {
+			int ultimaPosicao = caracteres.length() - 1;
+			Random random = new Random();
+			int posicao = random.nextInt(ultimaPosicao);
+			retorno = String.valueOf(caracteres.charAt(posicao));
+		}
+		return retorno;
+	}
+	
+	
 	/**
-	 * Converte o objeto em String Json
+	 * Retorna o objeto em String Json
 	 * @param Object object
 	 * @return String objToJson
 	 * @throws Exception
 	 */
-	public static final String obterJson(Object object) throws Exception {
+	public static final String getJson(Object object) throws Exception {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.writeValueAsString(object);
