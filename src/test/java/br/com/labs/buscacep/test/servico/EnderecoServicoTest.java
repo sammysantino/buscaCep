@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
 import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
 import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
-import br.com.labs.buscacep.servico.EnderecoServico;
+import br.com.labs.buscacep.service.EnderecoServico;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -23,7 +23,7 @@ public class EnderecoServicoTest {
 		envio.setCep("123A456B789C");
 		BuscaCepRetorno retorno = null;
 		try {
-			retorno = enderecoServico.buscarPorCep(envio);
+			retorno = enderecoServico.obterPorCep(envio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,9 +35,11 @@ public class EnderecoServicoTest {
 	public void buscarCepValidoExistente() {
 		BuscaCepEnvio envio = new BuscaCepEnvio();
 		envio.setCep("14403-471");
+		
+		
 		BuscaCepRetorno retorno = null;
 		try {
-			retorno = enderecoServico.buscarPorCep(envio);
+			retorno = enderecoServico.obterPorCep(envio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,7 +53,7 @@ public class EnderecoServicoTest {
 		envio.setCep("02047-111");
 		BuscaCepRetorno retorno = null;
 		try {
-			retorno = enderecoServico.buscarPorCep(envio);
+			retorno = enderecoServico.obterPorCep(envio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,8 +1,9 @@
-package br.com.labs.buscacep.pojo;
+package br.com.labs.buscacep.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,11 +34,12 @@ public class Autorizacao implements Serializable {
 	
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "data_cadastro")
-	@Getter @Setter private Calendar dataCadastro;
+	@Getter @Setter private LocalDateTime dataCadastro;
 	
-	public Autorizacao(String login, String senha, Calendar dataCadastro) {
+	public Autorizacao(String login, String senha, LocalDateTime dataCadastro) {
 		this.login = login;
 		this.senha = senha;
+		this.dataCadastro = dataCadastro;
 	}
 	
 }

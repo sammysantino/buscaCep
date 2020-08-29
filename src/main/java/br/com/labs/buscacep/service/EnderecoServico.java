@@ -1,26 +1,33 @@
-package br.com.labs.buscacep.servico;
+package br.com.labs.buscacep.service;
 
-import br.com.labs.buscacep.pojo.Endereco;
+import br.com.labs.buscacep.dao.EnderecoDAO;
+import br.com.labs.buscacep.exception.AutorizacaoException;
+import br.com.labs.buscacep.exception.ServicoException;
+import br.com.labs.buscacep.model.Endereco;
+import br.com.labs.buscacep.model.mock.EnderecoMock;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
 import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
 import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
 import br.com.labs.buscacep.rest.cep.InsereEnderecoEnvio;
 import br.com.labs.buscacep.rest.cep.InsereEnderecoRetorno;
-import br.com.labs.buscacep.servico.exception.ServicoException;
 import br.com.labs.buscacep.util.Constantes;
 import br.com.labs.buscacep.util.Util;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class EnderecoServico extends BaseServico {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
+	private EnderecoDAO dao;
+	
 	@EJB
-	private CredencialServico credencialServico;
+	private AutorizacaoServico autorizacaoServico;
 
-	public BuscaCepRetorno buscarPorCep(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
+	public BuscaCepRetorno obterPorCep(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
 		try {
 			BuscaCepRetorno retorno = new BuscaCepRetorno();
 			StringBuilder mensagem = new StringBuilder();
@@ -30,7 +37,11 @@ public class EnderecoServico extends BaseServico {
 			if (buscaCepEnvio == null) {
 				mensagem.append("Dados da requisição inválidos. ");
 			} else {
-				mensagem.append(credencialServico.autenticar(buscaCepEnvio.getLogin(), buscaCepEnvio.getSenha()));
+				try {
+					autorizacaoServico.autenticar(buscaCepEnvio.getLogin(), buscaCepEnvio.getSenha());
+				} catch (AutorizacaoException ae) {
+					mensagem.append(ae.getMessage());
+				}
 			
 				if (Util.isNullOrEmpty(buscaCepEnvio.getCep())) {
 					mensagem.append("Cep é obrigatório. ");
@@ -48,7 +59,7 @@ public class EnderecoServico extends BaseServico {
 				
 				while(buscar) {
 					log.info("Buscando CEP " + cep);
-					Endereco endereco = aplicacao.getEnderecoPorCep(cep);
+					Endereco endereco = dao.consultarPorCep(cep);
 
 					if (endereco == null) {
 						if (Constantes.CEP_SOMENTE_ZEROS.equals(cep)) {
@@ -81,18 +92,21 @@ public class EnderecoServico extends BaseServico {
 
 	public InsereEnderecoRetorno inserir(InsereEnderecoEnvio insereEnderecoEnvio) {
 		try {
-			InsereEnderecoRetorno retorno = new InsereEnderecoRetorno();
 			StringBuilder validacao = new StringBuilder();
 			
 			if (insereEnderecoEnvio == null) {
 				validacao.append("Dados da requisição inválidos.");
 			} 
+
+			try {
+				autorizacaoServico.autenticar(insereEnderecoEnvio.getLogin(), insereEnderecoEnvio.getSenha());
+			} catch (AutorizacaoException ae) {
+				validacao.append(ae.getMessage());
+			}
+			
 			if (insereEnderecoEnvio.getEndereco() == null) {
 				validacao.append("Endereço é obrigatório. ");
 			} 
-			
-			validacao.append(credencialServico.autenticar(insereEnderecoEnvio.getLogin(), insereEnderecoEnvio.getSenha()));
-
 			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getCep())) {
 				validacao.append("Cep é obrigatório. ");
 			} 
@@ -108,8 +122,10 @@ public class EnderecoServico extends BaseServico {
 			if (Util.isNullOrEmpty(insereEnderecoEnvio.getEndereco().getEstado())) {
 				validacao.append("Estado é obrigatório. ");
 			} 
+			
+			InsereEnderecoRetorno retorno = new InsereEnderecoRetorno();
 			if (validacao.toString().isEmpty()) {
-				aplicacao.inserirEnderecoPorCep(insereEnderecoEnvio.getEndereco());
+				dao.salvar(insereEnderecoEnvio.getEndereco());
 				retorno.setCodigoRetorno(ECodigoRetorno.SUCESSO.getDescricao());
 				retorno.setMensagemRetorno("Endereço inserido.");
 			} else {
@@ -120,6 +136,17 @@ public class EnderecoServico extends BaseServico {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), "Ops! Não foi possível inserir o endereço.");
+		}
+	}
+
+	public void inicializarEnderecos() throws ServicoException {
+		try {
+			for (int i = 0; i < 100; i++) {
+				Endereco endereco = EnderecoMock.getEndereco();
+				dao.salvar(endereco);
+			}
+		} catch (Exception e) {
+			throw new ServicoException(e.getMessage());
 		}
 	}
 

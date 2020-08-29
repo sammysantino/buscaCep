@@ -16,6 +16,6 @@ public final class Constantes {
 	
 	public static final String VIACEP_URL_CEP_CORINGA= "{cep}";
 	
-	public static final String REST_MENSAGEM_ERRO_PADRAO = "Não foi possível atender a requisição, verifique se o envio está no formato correto.";
+	public static final String REST_MENSAGEM_ERRO_PADRAO = "Ops! Ocorreu um erro ao atender a requisição.";
 
 }

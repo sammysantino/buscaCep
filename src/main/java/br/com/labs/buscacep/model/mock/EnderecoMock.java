@@ -1,6 +1,8 @@
-package br.com.labs.buscacep.util;
+package br.com.labs.buscacep.model.mock;
 
-import br.com.labs.buscacep.pojo.Endereco;
+import br.com.labs.buscacep.model.Endereco;
+import br.com.labs.buscacep.util.Constantes;
+import br.com.labs.buscacep.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,10 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 
-@ApplicationScoped
+/**
+ * classe auxiliar para gerar mocks de endereco
+ * @author samara
+ *
+ */
 public final class EnderecoMock {
 	
 	private static Map<String, List<String>> cidadesPorUf;
@@ -19,8 +23,7 @@ public final class EnderecoMock {
 	private static List<String> nomesLogradouros;
 	private static List<String> nomesBairros;
 	
-	@PostConstruct
-	public void inicializar() {
+	static {
 		cidadesPorUf = new HashMap<>();
 		
 		List<String> cidades = Arrays.asList("Londrina", "Maringá", "Apucarana", "Ibiporã", "Curitiba");

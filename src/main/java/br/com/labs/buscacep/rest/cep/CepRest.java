@@ -2,7 +2,7 @@ package br.com.labs.buscacep.rest.cep;
 
 import br.com.labs.buscacep.rest.BaseRest;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
-import br.com.labs.buscacep.servico.EnderecoServico;
+import br.com.labs.buscacep.service.EnderecoServico;
 import br.com.labs.buscacep.util.Constantes;
 import br.com.labs.buscacep.util.Util;
 import java.io.Serializable;
@@ -29,16 +29,17 @@ public class CepRest extends BaseRest implements Serializable {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response buscar(BuscaCepEnvio buscaCepEnvio, @Context HttpServletRequest request) {
+		BuscaCepRetorno retorno = null;
 		try {
 			getLog().info("INICIO BUSCAR CEP " + Util.getJson(buscaCepEnvio));
-			BuscaCepRetorno retorno = enderecoServico.buscarPorCep(buscaCepEnvio);
+			retorno = enderecoServico.obterPorCep(buscaCepEnvio);
 			getLog().info("FIM BUSCAR CEP " + Util.getJson(retorno));
-			return Response.ok(retorno).build();
 		} catch (Exception ec) {
 			ec.printStackTrace();
-			getLog().info("ERRO AO BUSCAR CEP " + ec.getMessage());
-			return Response.ok(new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), ec.getMessage())).build();
+			getLog().error("ERRO AO BUSCAR CEP " + ec.getMessage());
+			retorno = new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
 		}
+		return Response.ok(retorno).build();
 	}
 	
 	
@@ -51,18 +52,12 @@ public class CepRest extends BaseRest implements Serializable {
 		try {
 			getLog().info("INICIO INSERIR CEP " + Util.getJson(insereCepEnvio));
 			retorno = enderecoServico.inserir(insereCepEnvio);
+			getLog().info("FIM INSERIR CEP " + Util.getJson(retorno));
 		} catch (Exception ec) {
 			ec.printStackTrace();
+			getLog().error("ERRO AO INSERIR ENDERECO " + ec.getMessage());
 			retorno = new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
 		}
-		
-		try {
-			getLog().info("FIM INSERIR CEP " + Util.getJson(retorno));
-		} catch (Exception e) {
-			getLog().info("FIM INSERIR CEP " + retorno.getMensagemRetorno());
-		}
-		
-		
 		return Response.ok(retorno).build();
 	}
 }

@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.servico;
+package br.com.labs.buscacep.service;
 
 import br.com.labs.buscacep.aplicacao.Aplicacao;
 import java.io.Serializable;

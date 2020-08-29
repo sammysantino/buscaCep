@@ -1,6 +1,6 @@
 package br.com.labs.buscacep.rest.cep;
 
-import br.com.labs.buscacep.pojo.Endereco;
+import br.com.labs.buscacep.model.Endereco;
 import br.com.labs.buscacep.rest.BaseRetorno;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
