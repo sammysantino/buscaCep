@@ -27,10 +27,6 @@ public class BuscaCepEnvio implements Serializable {
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "cep")
 	@Getter @Setter private String cep;
-	
-	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "tipo_busca_cep")
-	@Getter @Setter private String tipoBuscaCep;
 
 	public BuscaCepEnvio() {
 		

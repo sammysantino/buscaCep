@@ -1,7 +1,6 @@
-package br.com.labs.buscacep.model.mock;
+package br.com.labs.buscacep.mock.model;
 
 import br.com.labs.buscacep.model.Endereco;
-import br.com.labs.buscacep.util.Constantes;
 import br.com.labs.buscacep.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * classe auxiliar para gerar mocks de endereco
@@ -18,12 +19,15 @@ import java.util.Random;
  */
 public final class EnderecoMock {
 	
+	private static Logger log;
 	private static Map<String, List<String>> cidadesPorUf;
 	private static List<String> tiposlogradouros;
 	private static List<String> nomesLogradouros;
 	private static List<String> nomesBairros;
 	
 	static {
+		LoggerFactory.getLogger(EnderecoMock.class);
+		
 		cidadesPorUf = new HashMap<>();
 		
 		List<String> cidades = Arrays.asList("Londrina", "Maringá", "Apucarana", "Ibiporã", "Curitiba");
@@ -57,7 +61,7 @@ public final class EnderecoMock {
 		endereco.setEstado(estado);
 		endereco.setRua(tipoLogradouro + " " + nomeLogradouro);
 		endereco.setBairro(bairro);
-		endereco.setCep(getRandomCep());
+		endereco.setCep(Util.gerarCep());
 		
 		return endereco;
 	}
@@ -69,28 +73,9 @@ public final class EnderecoMock {
 				retorno = new Random().nextInt(collection.size() - 1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 		
 		return retorno;
 	}
-	
-	private static final String getRandomCep() {
-		String cep = "";
-		try {
-			String caracteres = Constantes.NUMEROS 
-					+ Constantes.NUMEROS
-					+ Constantes.NUMEROS
-					+ Constantes.NUMEROS;
-			
-			for (int i = 0; i < 8; i++) {
-				cep = cep + Util.getRandomItem(caracteres);
-			}
-			caracteres = null;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return cep;
-	}
-	
 }

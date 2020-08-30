@@ -29,7 +29,7 @@ public class AutorizacaoServico extends BaseServico  {
 			}
 			
 			if (validacao.toString().isEmpty()) {
-				Autorizacao autorizacao = dao.obterPorLogin(login);
+				Autorizacao autorizacao = dao.consultarPorLogin(login);
 				if (autorizacao == null) {
 					validacao.append("Login não localizado. ");
 				} else if (!senha.equals(autorizacao.getSenha())) {

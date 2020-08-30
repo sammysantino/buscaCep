@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
+@Named
 @ApplicationScoped
 public class EnderecoDAO {
 	
@@ -19,7 +21,7 @@ public class EnderecoDAO {
 	public Endereco consultarPorCep(String cep) {
 		try {
 			return enderecosPorCep.get(cep);
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			throw e;
 		}
 	}

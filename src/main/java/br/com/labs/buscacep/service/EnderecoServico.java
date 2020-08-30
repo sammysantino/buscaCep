@@ -3,8 +3,8 @@ package br.com.labs.buscacep.service;
 import br.com.labs.buscacep.dao.EnderecoDAO;
 import br.com.labs.buscacep.exception.AutorizacaoException;
 import br.com.labs.buscacep.exception.ServicoException;
+import br.com.labs.buscacep.mock.model.EnderecoMock;
 import br.com.labs.buscacep.model.Endereco;
-import br.com.labs.buscacep.model.mock.EnderecoMock;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
 import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
 import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
@@ -15,6 +15,7 @@ import br.com.labs.buscacep.util.Util;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.slf4j.Logger;
 
 @Stateless
 public class EnderecoServico extends BaseServico {
@@ -26,6 +27,12 @@ public class EnderecoServico extends BaseServico {
 	
 	@EJB
 	private AutorizacaoServico autorizacaoServico;
+	
+	public EnderecoServico(EnderecoDAO dao, AutorizacaoServico autorizacaoServico, Logger log) {
+		this.dao = dao;
+		this.autorizacaoServico = autorizacaoServico;
+		this.log = log;
+	}
 
 	public BuscaCepRetorno obterPorCep(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
 		try {
@@ -46,17 +53,18 @@ public class EnderecoServico extends BaseServico {
 				if (Util.isNullOrEmpty(buscaCepEnvio.getCep())) {
 					mensagem.append("Cep é obrigatório. ");
 				} else  {
-					cep = Util.removerCaracteresNaoNumericos(buscaCepEnvio.getCep());
+					cep = buscaCepEnvio.getCep().replace("-", "").replaceAll(" ", "");
 					
-					if (cep.length() != 8) {
+					if (cep.length() != 8 || Util.removerCaracteresNaoNumericos(cep).length() != 8) {
 						mensagem.append("Cep inválido. ");
 					}
 				}
 			}
 				
-			if (mensagem.toString().isEmpty()) {
+			if (mensagem.toString().isEmpty() && !Util.isNullOrEmpty(cep)) {
 				boolean buscar = true;
 				
+				//enquanto nao encontrar o cep, e cep != '00000000'
 				while(buscar) {
 					log.info("Buscando CEP " + cep);
 					Endereco endereco = dao.consultarPorCep(cep);
@@ -82,10 +90,9 @@ public class EnderecoServico extends BaseServico {
 			retorno.setCodigoRetorno(codigoRetorno.getDescricao());
 			retorno.setMensagemRetorno(mensagem.toString());
 			
-			log.info("Buscando CEP " + cep);
 			return retorno;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 			return new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), "Ops! Não foi possível buscar o cep.");
 		}
 	}
@@ -134,17 +141,38 @@ public class EnderecoServico extends BaseServico {
 			}
 			return retorno;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 			return new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), "Ops! Não foi possível inserir o endereço.");
 		}
 	}
 
+	/**
+	 * inicializa o repositorio de enderecos com registros
+	 * @throws ServicoException
+	 */
 	public void inicializarEnderecos() throws ServicoException {
 		try {
-			for (int i = 0; i < 100; i++) {
+			for (int i = 0; i < 10; i++) {
 				Endereco endereco = EnderecoMock.getEndereco();
 				dao.salvar(endereco);
 			}
+			
+			dao.salvar(new Endereco.EnderecoBuilder()
+					.cep("14403471")
+					.rua("R. Arnulfo de Lima")
+					.bairro("Vila Santa Cruz")
+					.cidade("Franca")
+					.estado("São Paulo")
+					.build());
+			
+			dao.salvar(new Endereco.EnderecoBuilder()
+					.cep("02047000")
+					.rua("R. Maria Prestes Maia")
+					.bairro("Vila Guilherme")
+					.cidade("São Paulo")
+					.estado("São Paulo")
+					.build());
+			
 		} catch (Exception e) {
 			throw new ServicoException(e.getMessage());
 		}

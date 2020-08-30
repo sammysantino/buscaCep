@@ -36,27 +36,27 @@ public class CepRest extends BaseRest implements Serializable {
 			getLog().info("FIM BUSCAR CEP " + Util.getJson(retorno));
 		} catch (Exception ec) {
 			ec.printStackTrace();
-			getLog().error("ERRO AO BUSCAR CEP " + ec.getMessage());
 			retorno = new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
+			getLog().error("ERRO AO BUSCAR CEP " + ec.getMessage());
 		}
 		return Response.ok(retorno).build();
 	}
-	
-	
+
 	@POST
-	@Path("inserir")
+	@Path("inserirEndereco")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response inserir(InsereEnderecoEnvio insereCepEnvio, @Context HttpServletRequest request) {
 		InsereEnderecoRetorno retorno = null;
 		try {
-			getLog().info("INICIO INSERIR CEP " + Util.getJson(insereCepEnvio));
+			getLog().info("INICIO INSERIR ENDERECO " + Util.getJson(insereCepEnvio));
 			retorno = enderecoServico.inserir(insereCepEnvio);
-			getLog().info("FIM INSERIR CEP " + Util.getJson(retorno));
+			getLog().info("FIM INSERIR ENDERECO " + Util.getJson(retorno));
 		} catch (Exception ec) {
 			ec.printStackTrace();
-			getLog().error("ERRO AO INSERIR ENDERECO " + ec.getMessage());
 			retorno = new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
+			getLog().error("ERRO AO INSERIR ENDERECO " + ec.getMessage());
+			
 		}
 		return Response.ok(retorno).build();
 	}

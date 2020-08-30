@@ -47,18 +47,44 @@ public final class Util {
 								+ Constantes.LETRAS_MAIUSCULAS
 								+ Constantes.NUMEROS;
 			
-			String senha = "";
+			StringBuilder senha = new StringBuilder();
 			for (int i = 0; i < 15; i++) {
-				senha = senha + getRandomItem(caracteres);
+				senha.append(getRandomItem(caracteres));
 			}
-			
 			caracteres = null;
-			return senha;
+			return senha.toString();
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 	
+	/**
+	 * gera uma combinação aleatoria de 8 numeros, no formato String
+	 * @return String cep
+	 */
+	public static final String gerarCep() {
+		StringBuilder cep = new StringBuilder();
+		try {
+			String caracteres = Constantes.NUMEROS 
+					+ Constantes.NUMEROS
+					+ Constantes.NUMEROS
+					+ Constantes.NUMEROS;
+			
+			for (int i = 0; i < 8; i++) {
+				cep.append(Util.getRandomItem(caracteres));
+			}
+			caracteres = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cep.toString();
+	}
+	
+	/**
+	 * retorna um item (caractere) de uma string randomicamente
+	 * @param caracteres
+	 * @return
+	 */
 	public static String getRandomItem(String caracteres) {
 		String retorno = "";
 		if (!isNullOrEmpty(caracteres)) {

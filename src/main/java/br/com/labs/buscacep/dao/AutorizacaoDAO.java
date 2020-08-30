@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
+@Named
 @ApplicationScoped
 public class AutorizacaoDAO {
 	
@@ -16,7 +18,7 @@ public class AutorizacaoDAO {
 		credenciaisPorLogin = new HashMap<>();
 	}
 	
-	public Autorizacao obterPorLogin(String login) {
+	public Autorizacao consultarPorLogin(String login) {
 		try {
 			return credenciaisPorLogin.get(login);
 		} catch (Exception e) {

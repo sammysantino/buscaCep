@@ -5,9 +5,6 @@ import br.com.labs.buscacep.service.AutorizacaoServico;
 import br.com.labs.buscacep.service.EnderecoServico;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -35,10 +32,12 @@ public class Aplicacao implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		try {
+			log.info("INICIALIZAR  REGISTROS PADRAO");
 			enderecoServico.inicializarEnderecos();
 			autorizacaoServico.salvar(new Autorizacao("admin", "admin", LocalDateTime.now()));
+			log.info("FIM INICIALIZAR REGISTROS PADRAO");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 	}
 }
