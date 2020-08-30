@@ -10,8 +10,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BuscaCepRetorno extends BaseRetorno implements Serializable {
@@ -21,12 +23,9 @@ public class BuscaCepRetorno extends BaseRetorno implements Serializable {
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "endereco")
 	@Getter @Setter private Endereco endereco;
-	
-	public BuscaCepRetorno() {
-		
-	}
-	
-	public BuscaCepRetorno(String codigoRetorno, String mensagemRetorno) {
+
+	public BuscaCepRetorno(Integer codigoRetorno, String mensagemRetorno) {
 		super(codigoRetorno, mensagemRetorno);
 	}
+	
 }

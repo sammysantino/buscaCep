@@ -16,7 +16,7 @@ public class AutorizacaoServico extends BaseServico  {
 	@Inject
 	private AutorizacaoDAO dao;
 
-	public void autenticar(String login, String senha) throws AutorizacaoException, ServicoException {
+	public void autorizar(String login, String senha) throws AutorizacaoException, ServicoException {
 		try {
 			StringBuilder validacao = new StringBuilder();
 			

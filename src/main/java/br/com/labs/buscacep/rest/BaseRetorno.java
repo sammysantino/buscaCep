@@ -8,8 +8,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BaseRetorno implements Serializable {
@@ -18,17 +20,13 @@ public class BaseRetorno implements Serializable {
 
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "codigo_retorno")
-	@Getter @Setter private String codigoRetorno;
+	@Getter @Setter private Integer codigoRetorno;
 
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "mensagem_retorno")
 	@Getter @Setter private String mensagemRetorno;
-
-	public BaseRetorno() {
-		
-	}
 	
-	public BaseRetorno(String codigoRetorno, String mensagemRetorno) {
+	public BaseRetorno(Integer codigoRetorno, String mensagemRetorno) {
 		this.codigoRetorno = codigoRetorno;
 		this.mensagemRetorno = mensagemRetorno;
 	}

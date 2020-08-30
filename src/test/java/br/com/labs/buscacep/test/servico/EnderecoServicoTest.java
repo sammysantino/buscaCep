@@ -10,9 +10,10 @@ import br.com.labs.buscacep.model.Endereco;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
 import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
 import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
+import br.com.labs.buscacep.rest.cep.InsereEnderecoEnvio;
+import br.com.labs.buscacep.rest.cep.InsereEnderecoRetorno;
 import br.com.labs.buscacep.service.AutorizacaoServico;
 import br.com.labs.buscacep.service.EnderecoServico;
-import br.com.labs.buscacep.util.Constantes;
 import br.com.labs.buscacep.util.Util;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class EnderecoServicoTest {
 		}
 		
 		assertNotNull(retorno);
-		assertTrue(ECodigoRetorno.ERRO.getDescricao().equals(retorno.getCodigoRetorno()));
+		assertTrue(ECodigoRetorno.VALIDACAO.getCodigo().equals(retorno.getCodigoRetorno()));
 		assertNull(retorno.getEndereco());
 	}
 	
@@ -70,7 +71,7 @@ public class EnderecoServicoTest {
 		}
 		
 		assertNotNull(retorno);
-		assertTrue(ECodigoRetorno.SUCESSO.getDescricao().equals(retorno.getCodigoRetorno()));
+		assertTrue(ECodigoRetorno.SUCESSO.getCodigo().equals(retorno.getCodigoRetorno()));
 		assertNotNull(retorno.getEndereco());
 	}
 	
@@ -87,8 +88,92 @@ public class EnderecoServicoTest {
 		}
 		
 		assertNotNull(retorno);
-		assertTrue(ECodigoRetorno.SUCESSO.getDescricao().equals(retorno.getCodigoRetorno()));
+		assertTrue(ECodigoRetorno.SUCESSO.getCodigo().equals(retorno.getCodigoRetorno()));
 		assertNull(retorno.getEndereco());
 	}
 	
+	@Test
+	public void inserirEnderecoCepInvalido() {
+		InsereEnderecoEnvio envio = new InsereEnderecoEnvio();
+		Endereco endereco = EnderecoMock.getEndereco();
+		endereco.setCep(null);
+		envio.setEndereco(endereco);
+		InsereEnderecoRetorno retorno = null;
+		try {
+			retorno = enderecoServico.inserir(envio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertNotNull(retorno);
+		assertTrue(ECodigoRetorno.VALIDACAO.getCodigo().equals(retorno.getCodigoRetorno()));
+	}
+	
+	@Test
+	public void inserirEnderecoRuaInvalida() {
+		InsereEnderecoEnvio envio = new InsereEnderecoEnvio();
+		Endereco endereco = EnderecoMock.getEndereco();
+		endereco.setRua(null);
+		envio.setEndereco(endereco);
+		InsereEnderecoRetorno retorno = null;
+		try {
+			retorno = enderecoServico.inserir(envio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertNotNull(retorno);
+		assertTrue(ECodigoRetorno.VALIDACAO.getCodigo().equals(retorno.getCodigoRetorno()));
+	}
+	
+	@Test
+	public void inserirEnderecoBairroInvalido() {
+		InsereEnderecoEnvio envio = new InsereEnderecoEnvio();
+		Endereco endereco = EnderecoMock.getEndereco();
+		endereco.setBairro(null);
+		envio.setEndereco(endereco);
+		InsereEnderecoRetorno retorno = null;
+		try {
+			retorno = enderecoServico.inserir(envio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertNotNull(retorno);
+		assertTrue(ECodigoRetorno.VALIDACAO.getCodigo().equals(retorno.getCodigoRetorno()));
+	}
+	
+	@Test
+	public void inserirEnderecoCidadeInvalida() {
+		InsereEnderecoEnvio envio = new InsereEnderecoEnvio();
+		Endereco endereco = EnderecoMock.getEndereco();
+		endereco.setCidade(null);
+		envio.setEndereco(endereco);
+		InsereEnderecoRetorno retorno = null;
+		try {
+			retorno = enderecoServico.inserir(envio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertNotNull(retorno);
+		assertTrue(ECodigoRetorno.VALIDACAO.getCodigo().equals(retorno.getCodigoRetorno()));
+	}
+	
+	@Test
+	public void inserirEnderecoEstadoInvalido() {
+		InsereEnderecoEnvio envio = new InsereEnderecoEnvio();
+		Endereco endereco = EnderecoMock.getEndereco();
+		endereco.setEstado(null);
+		envio.setEndereco(endereco);
+		InsereEnderecoRetorno retorno = null;
+		try {
+			retorno = enderecoServico.inserir(envio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertNotNull(retorno);
+		assertTrue(ECodigoRetorno.VALIDACAO.getCodigo().equals(retorno.getCodigoRetorno()));
+	}
 }

@@ -35,8 +35,7 @@ public class CepRest extends BaseRest implements Serializable {
 			retorno = enderecoServico.obterPorCep(buscaCepEnvio);
 			getLog().info("FIM BUSCAR CEP " + Util.getJson(retorno));
 		} catch (Exception ec) {
-			ec.printStackTrace();
-			retorno = new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
+			retorno = new BuscaCepRetorno(ECodigoRetorno.ERRO.getCodigo(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
 			getLog().error("ERRO AO BUSCAR CEP " + ec.getMessage());
 		}
 		return Response.ok(retorno).build();
@@ -53,10 +52,8 @@ public class CepRest extends BaseRest implements Serializable {
 			retorno = enderecoServico.inserir(insereCepEnvio);
 			getLog().info("FIM INSERIR ENDERECO " + Util.getJson(retorno));
 		} catch (Exception ec) {
-			ec.printStackTrace();
-			retorno = new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
+			retorno = new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getCodigo(), Constantes.REST_MENSAGEM_ERRO_PADRAO);
 			getLog().error("ERRO AO INSERIR ENDERECO " + ec.getMessage());
-			
 		}
 		return Response.ok(retorno).build();
 	}

@@ -45,7 +45,7 @@ public class EnderecoServico extends BaseServico {
 				mensagem.append("Dados da requisição inválidos. ");
 			} else {
 				try {
-					autorizacaoServico.autenticar(buscaCepEnvio.getLogin(), buscaCepEnvio.getSenha());
+					autorizacaoServico.autorizar(buscaCepEnvio.getLogin(), buscaCepEnvio.getSenha());
 				} catch (AutorizacaoException ae) {
 					mensagem.append(ae.getMessage());
 				}
@@ -64,7 +64,7 @@ public class EnderecoServico extends BaseServico {
 			if (mensagem.toString().isEmpty() && !Util.isNullOrEmpty(cep)) {
 				boolean buscar = true;
 				
-				//enquanto nao encontrar o cep, e cep != '00000000'
+				//enquanto nao encontrar o cep e cep != '00000000'
 				while(buscar) {
 					log.info("Buscando CEP " + cep);
 					Endereco endereco = dao.consultarPorCep(cep);
@@ -84,16 +84,14 @@ public class EnderecoServico extends BaseServico {
 					}
 				}
 			} else {
-				codigoRetorno = ECodigoRetorno.ERRO;
+				codigoRetorno = ECodigoRetorno.VALIDACAO;
 			}
-			
-			retorno.setCodigoRetorno(codigoRetorno.getDescricao());
+			retorno.setCodigoRetorno(codigoRetorno.getCodigo());
 			retorno.setMensagemRetorno(mensagem.toString());
-			
 			return retorno;
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			return new BuscaCepRetorno(ECodigoRetorno.ERRO.getDescricao(), "Ops! Não foi possível buscar o cep.");
+			return new BuscaCepRetorno(ECodigoRetorno.ERRO.getCodigo(), "Ops! Não foi possível buscar o cep.");
 		}
 	}
 
@@ -106,7 +104,7 @@ public class EnderecoServico extends BaseServico {
 			} 
 
 			try {
-				autorizacaoServico.autenticar(insereEnderecoEnvio.getLogin(), insereEnderecoEnvio.getSenha());
+				autorizacaoServico.autorizar(insereEnderecoEnvio.getLogin(), insereEnderecoEnvio.getSenha());
 			} catch (AutorizacaoException ae) {
 				validacao.append(ae.getMessage());
 			}
@@ -133,16 +131,16 @@ public class EnderecoServico extends BaseServico {
 			InsereEnderecoRetorno retorno = new InsereEnderecoRetorno();
 			if (validacao.toString().isEmpty()) {
 				dao.salvar(insereEnderecoEnvio.getEndereco());
-				retorno.setCodigoRetorno(ECodigoRetorno.SUCESSO.getDescricao());
+				retorno.setCodigoRetorno(ECodigoRetorno.SUCESSO.getCodigo());
 				retorno.setMensagemRetorno("Endereço inserido.");
 			} else {
-				retorno.setCodigoRetorno(ECodigoRetorno.ERRO.getDescricao());
+				retorno.setCodigoRetorno(ECodigoRetorno.VALIDACAO.getCodigo());
 				retorno.setMensagemRetorno(validacao.toString());
 			}
 			return retorno;
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			return new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getDescricao(), "Ops! Não foi possível inserir o endereço.");
+			return new InsereEnderecoRetorno(ECodigoRetorno.ERRO.getCodigo(), "Ops! Não foi possível inserir o endereço.");
 		}
 	}
 
