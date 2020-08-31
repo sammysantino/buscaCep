@@ -152,7 +152,6 @@ public class CepInformacaoServico extends BaseServico<CepInformacao> {
 			}
 			
 			InsereCepInformacaoRetorno retorno = new InsereCepInformacaoRetorno();
-			System.out.println(validacao);
 			if (validacao.toString().isEmpty()) {
 				dao.salvar(insereCepInformacaoEnvio.getCepInformacao());
 				retorno.setCodigoRetorno(ECodigoRetorno.SUCESSO.getCodigo());
