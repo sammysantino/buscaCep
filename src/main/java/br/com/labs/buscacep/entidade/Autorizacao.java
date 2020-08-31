@@ -41,12 +41,11 @@ public class Autorizacao implements Serializable {
 	
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "senha")
-	@Column(name = "login", length = Constantes.QUINZE, nullable = false)
+	@Column(name = "senha", length = Constantes.QUINZE, nullable = false)
 	@Getter @Setter private String senha;
 	
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "data_cadastro")
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_cadastro")
 	@Getter @Setter private LocalDateTime dataCadastro;
 	

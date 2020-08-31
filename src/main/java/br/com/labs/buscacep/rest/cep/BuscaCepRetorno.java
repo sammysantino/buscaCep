@@ -1,11 +1,10 @@
-package br.com.labs.buscacep.rest.endereco;
+package br.com.labs.buscacep.rest.cep;
 
-import br.com.labs.buscacep.entidade.Endereco;
+import br.com.labs.buscacep.entidade.CepInformacao;
 import br.com.labs.buscacep.rest.BaseRetorno;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,21 +16,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BuscaEnderecoRetorno extends BaseRetorno implements Serializable {
+public class BuscaCepRetorno extends BaseRetorno implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "enderecos")
-	@Getter @Setter private List<Endereco> enderecos;
+	@XmlElement(name = "cep")
+	@Getter @Setter private CepInformacao cep;
 
-	public BuscaEnderecoRetorno(Integer codigoRetorno, String mensagemRetorno) {
+	public BuscaCepRetorno(Integer codigoRetorno, String mensagemRetorno) {
 		super(codigoRetorno, mensagemRetorno);
 	}
-
-	public BuscaEnderecoRetorno(Integer codigoRetorno, String mensagemRetorno, List<Endereco> enderecos) {
-		this(codigoRetorno, mensagemRetorno);
-		this.enderecos = enderecos;
-	}
 	
-} 
+}

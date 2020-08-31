@@ -1,5 +1,6 @@
-package br.com.labs.buscacep.rest.endereco;
+package br.com.labs.buscacep.rest.cep;
 
+import br.com.labs.buscacep.entidade.CepInformacao;
 import br.com.labs.buscacep.rest.BaseEnvio;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -15,16 +16,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BuscaCepEnvio extends BaseEnvio implements Serializable {
+public class InsereCepInformacaoEnvio extends BaseEnvio implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "cep")
-	@Getter @Setter private String cep;
-	
-	public BuscaCepEnvio(String login, String senha) {
+	@XmlElement(name = "cep_informacao")
+	@Getter @Setter private CepInformacao cepInformacao;
+
+	public InsereCepInformacaoEnvio(String login, String senha) {
 		super(login, senha);
 	}
-	
 }

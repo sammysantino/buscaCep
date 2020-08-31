@@ -2,7 +2,7 @@ package br.com.labs.buscacep.util;
 
 import br.com.labs.buscacep.entidade.Autorizacao;
 import br.com.labs.buscacep.servico.AutorizacaoServico;
-import br.com.labs.buscacep.servico.EnderecoServico;
+import br.com.labs.buscacep.servico.CepInformacaoServico;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,7 +23,7 @@ public class Aplicacao implements Serializable {
 	private transient Logger log;
 	
 	@EJB
-	private EnderecoServico enderecoServico;
+	private CepInformacaoServico enderecoServico;
 	
 	@EJB
 	private AutorizacaoServico autorizacaoServico;
@@ -32,7 +32,7 @@ public class Aplicacao implements Serializable {
 	public void inicializar() {
 		try {
 			log.info("INICIALIZAR  REGISTROS PADRAO");
-			enderecoServico.inicializarEnderecos();
+			enderecoServico.inicializarCepInformacaos();
 			Autorizacao autorizacaoPadrao = autorizacaoServico.obterPorLogin("admin");
 			if (autorizacaoPadrao == null) {
 				autorizacaoServico.salvar(new Autorizacao("admin", "admin"));

@@ -1,6 +1,6 @@
 package br.com.labs.buscacep.entidade.mock;
 
-import br.com.labs.buscacep.entidade.Endereco;
+import br.com.labs.buscacep.entidade.CepInformacao;
 import br.com.labs.buscacep.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,11 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * classe auxiliar para gerar mocks de endereco
+ * classe auxiliar para gerar mocks de cep informacao
  * @author samara
  *
  */
-public final class EnderecoMock {
+public final class CepInformacaoMock {
 	
 	private static Logger log;
 	private static Map<String, List<String>> cidadesPorUf;
@@ -26,7 +26,7 @@ public final class EnderecoMock {
 	private static List<String> nomesBairros;
 	
 	static {
-		LoggerFactory.getLogger(EnderecoMock.class);
+		LoggerFactory.getLogger(CepInformacaoMock.class);
 		
 		cidadesPorUf = new HashMap<>();
 		
@@ -43,11 +43,11 @@ public final class EnderecoMock {
 		cidadesPorUf.put("Rio de Janeiro", cidades);
 		
 		tiposlogradouros = Arrays.asList("Rua", "Avenida", "Alameda", "Travessa");
-		nomesLogradouros = Arrays.asList("Rua", "Avenida", "Alameda", "Travessa");
+		nomesLogradouros = Arrays.asList("JK", "das Américas", "Brasil", "Igapó");
 		nomesBairros = Arrays.asList("Jardim Aurora", "Parque das Alamandas", "Centro", "Jardim do Vale");
 	}
 	
-	public static Endereco getEndereco() {
+	public static CepInformacao getCepInformacao() {
 		List<String> estados = new ArrayList<>(cidadesPorUf.keySet());
 		String estado = estados.get(getRandomIndex(estados));
 		List<String> cidades = cidadesPorUf.get(estado);
@@ -56,14 +56,14 @@ public final class EnderecoMock {
 		String nomeLogradouro = nomesLogradouros.get(getRandomIndex(nomesLogradouros));
 		String bairro = nomesBairros.get(getRandomIndex(nomesBairros));
 		
-		Endereco endereco = new Endereco();
-		endereco.setCidade(cidade);
-		endereco.setEstado(estado);
-		endereco.setRua(tipoLogradouro + " " + nomeLogradouro);
-		endereco.setBairro(bairro);
-		endereco.setCep(Util.gerarCep());
+		CepInformacao cepInformacao = new CepInformacao();
+		cepInformacao.setCidade(cidade);
+		cepInformacao.setEstado(estado);
+		cepInformacao.setRua(tipoLogradouro + " " + nomeLogradouro);
+		cepInformacao.setBairro(bairro);
+		cepInformacao.setCep(Util.gerarCep());
 		
-		return endereco;
+		return cepInformacao;
 	}
 	
 	private static final int getRandomIndex(Collection collection) {

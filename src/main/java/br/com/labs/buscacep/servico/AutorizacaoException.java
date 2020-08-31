@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.exception;
+package br.com.labs.buscacep.servico;
 
 public class AutorizacaoException extends Exception {
 

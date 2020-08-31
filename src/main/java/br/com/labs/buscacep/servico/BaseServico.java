@@ -1,7 +1,6 @@
 package br.com.labs.buscacep.servico;
 
 import br.com.labs.buscacep.dao.InterfaceDAO;
-import br.com.labs.buscacep.exception.ServicoException;
 import br.com.labs.buscacep.util.Constantes;
 import java.util.List;
 import javax.inject.Inject;
@@ -54,6 +53,7 @@ public abstract class BaseServico<T> implements InterfaceServico<T> {
 		try {
 			return dao.consultarTodos();
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			throw new ServicoException(Constantes.MENSAGEM_ERRO_PADRAO);
 		}

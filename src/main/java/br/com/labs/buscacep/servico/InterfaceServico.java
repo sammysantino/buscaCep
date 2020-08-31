@@ -1,6 +1,5 @@
 package br.com.labs.buscacep.servico;
 
-import br.com.labs.buscacep.exception.ServicoException;
 import java.io.Serializable;
 import java.util.List;
 

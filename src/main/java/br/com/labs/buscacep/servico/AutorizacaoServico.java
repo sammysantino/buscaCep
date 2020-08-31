@@ -2,8 +2,6 @@ package br.com.labs.buscacep.servico;
 
 import br.com.labs.buscacep.dao.AutorizacaoDAO;
 import br.com.labs.buscacep.entidade.Autorizacao;
-import br.com.labs.buscacep.exception.AutorizacaoException;
-import br.com.labs.buscacep.exception.ServicoException;
 import br.com.labs.buscacep.util.Util;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -47,6 +45,9 @@ public class AutorizacaoServico extends BaseServico<Autorizacao>  {
 			if (!validacao.toString().isEmpty()) {
 				throw new AutorizacaoException(validacao.toString());
 			}
+		
+		} catch (AutorizacaoException ae) {
+			throw ae;
 		} catch (Exception e) {
 			throw new ServicoException(e.getMessage());
 		}

@@ -23,25 +23,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = {"cep"})
 @NoArgsConstructor
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@Table(name = "endereco", schema = "public")
-public class Endereco implements Serializable {
+@Table(name = "cep_informacao", schema = "public")
+public class CepInformacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlTransient
-	@Id
-	@SequenceGenerator(name = "enderecoSeq", sequenceName = "endereco_id_seq", allocationSize = 1, schema = "public")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "enderecoSeq")
-	private Long id;
-	
 	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "cep")
-	@Column(name = "cep", length = Constantes.OITO, nullable = false, unique = true)
+	@Id
+	@Column(name = "cep", length = Constantes.OITO)
 	@Getter @Setter private String cep;
 	
 	@JsonInclude(Include.NON_EMPTY)
@@ -65,39 +60,39 @@ public class Endereco implements Serializable {
 	@Getter @Setter private String estado;
 	
 	@XmlTransient
-	public static class EnderecoBuilder {
-		Endereco endereco;
+	public static class CepInformacaoBuilder {
+		CepInformacao endereco;
 		
-		public EnderecoBuilder() {
-			endereco = new Endereco();
+		public CepInformacaoBuilder() {
+			endereco = new CepInformacao();
 		}
 			
-		public EnderecoBuilder cep(String cep) {
+		public CepInformacaoBuilder cep(String cep) {
 			endereco.setCep(cep);
 			return this;
 		}
 		
-		public EnderecoBuilder rua(String rua) {
+		public CepInformacaoBuilder rua(String rua) {
 			endereco.setRua(rua);
 			return this;
 		}
 		
-		public EnderecoBuilder bairro(String bairro) {
+		public CepInformacaoBuilder bairro(String bairro) {
 			endereco.setBairro(bairro);
 			return this;
 		}
 		
-		public EnderecoBuilder cidade(String cidade) {
+		public CepInformacaoBuilder cidade(String cidade) {
 			endereco.setCidade(cidade);
 			return this;
 		}
 		
-		public EnderecoBuilder estado(String estado) {
+		public CepInformacaoBuilder estado(String estado) {
 			endereco.setEstado(estado);
 			return this;
 		}
 		
-		public Endereco build() {
+		public CepInformacao build() {
 			return endereco;
 		}
 	}
