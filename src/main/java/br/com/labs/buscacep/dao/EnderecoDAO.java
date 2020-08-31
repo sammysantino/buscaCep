@@ -1,36 +1,33 @@
 package br.com.labs.buscacep.dao;
 
-import br.com.labs.buscacep.model.Endereco;
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import br.com.labs.buscacep.entidade.Endereco;
+import br.com.labs.buscacep.util.Constantes;
+import javax.persistence.NoResultException;
 
-@Named
-@ApplicationScoped
-public class EnderecoDAO {
+public class EnderecoDAO extends BaseDAO<Endereco> {
+
+	private static final long serialVersionUID = 1L;
 	
-	private Map<String, Endereco> enderecosPorCep;
-	
-	@PostConstruct
-	private void inicializar() {
-		enderecosPorCep = new HashMap<>();
+	public EnderecoDAO() {
+		super(Endereco.class);
 	}
 	
-	public Endereco consultarPorCep(String cep) {
+	public Endereco consultarPorCep(String cep) throws DAOException {
 		try {
-			return enderecosPorCep.get(cep);
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT e ");
+			sql.append("FROM Endereco e ");
+			sql.append("WHERE e.cep =:_cep ");
+			
+			return getEm()
+					.createQuery(sql.toString(), Endereco.class)
+					.setParameter("_cep", cep)
+					.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
 		} catch (Exception e) { 
-			throw e;
-		}
-	}
-	
-	public void salvar(Endereco endereco) {
-		try {
-			enderecosPorCep.put(endereco.getCep(), endereco);
-		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new DAOException(Constantes.MENSAGEM_ERRO_PADRAO);
 		}
 	}
 

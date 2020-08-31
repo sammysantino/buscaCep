@@ -1,10 +1,9 @@
-package br.com.labs.buscacep.aplicacao;
+package br.com.labs.buscacep.util;
 
-import br.com.labs.buscacep.model.Autorizacao;
-import br.com.labs.buscacep.service.AutorizacaoServico;
-import br.com.labs.buscacep.service.EnderecoServico;
+import br.com.labs.buscacep.entidade.Autorizacao;
+import br.com.labs.buscacep.servico.AutorizacaoServico;
+import br.com.labs.buscacep.servico.EnderecoServico;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -34,7 +33,10 @@ public class Aplicacao implements Serializable {
 		try {
 			log.info("INICIALIZAR  REGISTROS PADRAO");
 			enderecoServico.inicializarEnderecos();
-			autorizacaoServico.salvar(new Autorizacao("admin", "admin", LocalDateTime.now()));
+			Autorizacao autorizacaoPadrao = autorizacaoServico.obterPorLogin("admin");
+			if (autorizacaoPadrao == null) {
+				autorizacaoServico.salvar(new Autorizacao("admin", "admin"));
+			}
 			log.info("FIM INICIALIZAR REGISTROS PADRAO");
 		} catch (Exception e) {
 			log.error(e.getMessage());

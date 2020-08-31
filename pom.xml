@@ -13,6 +13,7 @@
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<hibernate.jpamodelgen.version>4.3.6.Final</hibernate.jpamodelgen.version>
     	<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 	
@@ -117,6 +118,18 @@
 		    <artifactId>junit</artifactId>
 		    <version>4.13</version>
 		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.5.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.5.Final</version>
 		</dependency>
 	</dependencies>
 </project>

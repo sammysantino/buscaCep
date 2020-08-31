@@ -1,36 +1,34 @@
 package br.com.labs.buscacep.dao;
 
-import br.com.labs.buscacep.model.Autorizacao;
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import br.com.labs.buscacep.entidade.Autorizacao;
+import br.com.labs.buscacep.util.Constantes;
+import javax.persistence.NoResultException;
 
-@Named
-@ApplicationScoped
-public class AutorizacaoDAO {
-	
-	private Map<String, Autorizacao> credenciaisPorLogin;
-	
-	@PostConstruct
-	private void inicializar() {
-		credenciaisPorLogin = new HashMap<>();
+public class AutorizacaoDAO extends BaseDAO<Autorizacao> {
+
+	private static final long serialVersionUID = 1L;
+
+	public AutorizacaoDAO() {
+		super(Autorizacao.class);
 	}
 	
-	public Autorizacao consultarPorLogin(String login) {
+	public Autorizacao consultarPorLogin(String login) throws DAOException {
 		try {
-			return credenciaisPorLogin.get(login);
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT a ");
+			sql.append("FROM Autorizacao a ");
+			sql.append("WHERE a.login =:_login ");
+			
+			return getEm()
+					.createQuery(sql.toString(), Autorizacao.class)
+					.setParameter("_login", login)
+					.getSingleResult();
+			
+		} catch (NoResultException nre) {
+			return null;
 		} catch (Exception e) {
-			throw e;
-		}
-	}
-	
-	public void salvar(Autorizacao autorizacao) {
-		try {
-			credenciaisPorLogin.put(autorizacao.getLogin(), autorizacao);
-		} catch (Exception e) {
-			throw e;
+			log.error(e.getMessage());
+			throw new DAOException(Constantes.MENSAGEM_ERRO_PADRAO);
 		}
 	}
 

@@ -41,10 +41,10 @@ public final class Util {
 	public static String gerarSenha() {
 		try {
 			String caracteres = Constantes.NUMEROS 
-								+ Constantes.LETRAS_MINUSCULAS
+								+ Constantes.LETRAS.toLowerCase()
 								+ Constantes.NUMEROS
 								+ Constantes.NUMEROS
-								+ Constantes.LETRAS_MAIUSCULAS
+								+ Constantes.LETRAS.toUpperCase()
 								+ Constantes.NUMEROS;
 			
 			StringBuilder senha = new StringBuilder();
@@ -95,7 +95,6 @@ public final class Util {
 		}
 		return retorno;
 	}
-	
 	
 	/**
 	 * Retorna o objeto em String Json

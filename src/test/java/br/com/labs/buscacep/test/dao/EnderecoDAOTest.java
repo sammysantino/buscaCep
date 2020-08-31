@@ -3,7 +3,7 @@ package br.com.labs.buscacep.test.dao;
 import static org.junit.Assert.assertNull;
 
 import br.com.labs.buscacep.dao.EnderecoDAO;
-import br.com.labs.buscacep.model.Endereco;
+import br.com.labs.buscacep.entidade.Endereco;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

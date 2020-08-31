@@ -1,20 +1,27 @@
-package br.com.labs.buscacep.service;
+package br.com.labs.buscacep.servico;
 
 import br.com.labs.buscacep.dao.AutorizacaoDAO;
+import br.com.labs.buscacep.entidade.Autorizacao;
 import br.com.labs.buscacep.exception.AutorizacaoException;
 import br.com.labs.buscacep.exception.ServicoException;
-import br.com.labs.buscacep.model.Autorizacao;
 import br.com.labs.buscacep.util.Util;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class AutorizacaoServico extends BaseServico  {
+public class AutorizacaoServico extends BaseServico<Autorizacao>  {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private AutorizacaoDAO dao;
+	
+	@Override
+	@PostConstruct
+	protected void inicializar() {
+		super.setDao(dao);
+	}
 
 	public void autorizar(String login, String senha) throws AutorizacaoException, ServicoException {
 		try {
@@ -29,7 +36,7 @@ public class AutorizacaoServico extends BaseServico  {
 			}
 			
 			if (validacao.toString().isEmpty()) {
-				Autorizacao autorizacao = dao.consultarPorLogin(login);
+				Autorizacao autorizacao = obterPorLogin(login);
 				if (autorizacao == null) {
 					validacao.append("Login não localizado. ");
 				} else if (!senha.equals(autorizacao.getSenha())) {
@@ -44,15 +51,13 @@ public class AutorizacaoServico extends BaseServico  {
 			throw new ServicoException(e.getMessage());
 		}
 	}
-	
-	public void salvar(Autorizacao autorizacao) throws ServicoException {
+
+	public Autorizacao obterPorLogin(String login) throws ServicoException {
 		try {
-			dao.salvar(autorizacao);
+			return dao.consultarPorLogin(login);
 		} catch (Exception e) {
 			throw new ServicoException(e.getMessage());
 		}
 	}
 	
-	
-
 }

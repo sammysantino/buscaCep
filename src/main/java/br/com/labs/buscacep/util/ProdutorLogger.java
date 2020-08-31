@@ -1,4 +1,4 @@
-package br.com.labs.buscacep.aplicacao;
+package br.com.labs.buscacep.util;
 
 import java.io.Serializable;
 import javax.ejb.Singleton;

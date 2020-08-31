@@ -1,24 +1,30 @@
-package br.com.labs.buscacep.service;
+package br.com.labs.buscacep.servico;
 
 import br.com.labs.buscacep.dao.EnderecoDAO;
+import br.com.labs.buscacep.entidade.Endereco;
+import br.com.labs.buscacep.entidade.mock.EnderecoMock;
 import br.com.labs.buscacep.exception.AutorizacaoException;
 import br.com.labs.buscacep.exception.ServicoException;
-import br.com.labs.buscacep.mock.model.EnderecoMock;
-import br.com.labs.buscacep.model.Endereco;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
-import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
-import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
-import br.com.labs.buscacep.rest.cep.InsereEnderecoEnvio;
-import br.com.labs.buscacep.rest.cep.InsereEnderecoRetorno;
+import br.com.labs.buscacep.rest.endereco.BuscaCepEnvio;
+import br.com.labs.buscacep.rest.endereco.BuscaCepRetorno;
+import br.com.labs.buscacep.rest.endereco.BuscaEnderecoEnvio;
+import br.com.labs.buscacep.rest.endereco.BuscaEnderecoRetorno;
+import br.com.labs.buscacep.rest.endereco.InsereEnderecoEnvio;
+import br.com.labs.buscacep.rest.endereco.InsereEnderecoRetorno;
 import br.com.labs.buscacep.util.Constantes;
 import br.com.labs.buscacep.util.Util;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 
+@NoArgsConstructor
 @Stateless
-public class EnderecoServico extends BaseServico {
+public class EnderecoServico extends BaseServico<Endereco> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -33,8 +39,14 @@ public class EnderecoServico extends BaseServico {
 		this.autorizacaoServico = autorizacaoServico;
 		this.log = log;
 	}
+	
+	@Override
+	@PostConstruct
+	protected void inicializar() {
+		super.setDao(dao);
+	}
 
-	public BuscaCepRetorno obterPorCep(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
+	public BuscaCepRetorno buscarPorCep(BuscaCepEnvio buscaCepEnvio) throws ServicoException {
 		try {
 			BuscaCepRetorno retorno = new BuscaCepRetorno();
 			StringBuilder mensagem = new StringBuilder();
@@ -53,7 +65,10 @@ public class EnderecoServico extends BaseServico {
 				if (Util.isNullOrEmpty(buscaCepEnvio.getCep())) {
 					mensagem.append("Cep é obrigatório. ");
 				} else  {
-					cep = buscaCepEnvio.getCep().replace("-", "").replaceAll(" ", "");
+					cep = buscaCepEnvio
+							.getCep()
+							.replace("-", "")
+							.replaceAll(" ", "");
 					
 					if (cep.length() != 8 || Util.removerCaracteresNaoNumericos(cep).length() != 8) {
 						mensagem.append("Cep inválido. ");
@@ -67,7 +82,7 @@ public class EnderecoServico extends BaseServico {
 				//enquanto nao encontrar o cep e cep != '00000000'
 				while(buscar) {
 					log.info("Buscando CEP " + cep);
-					Endereco endereco = dao.consultarPorCep(cep);
+					Endereco endereco = obterPorCep(cep);
 
 					if (endereco == null) {
 						if (Constantes.CEP_SOMENTE_ZEROS.equals(cep)) {
@@ -92,6 +107,14 @@ public class EnderecoServico extends BaseServico {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return new BuscaCepRetorno(ECodigoRetorno.ERRO.getCodigo(), "Ops! Não foi possível buscar o cep.");
+		}
+	}
+
+	private Endereco obterPorCep(String cep) throws ServicoException {
+		try {
+			return dao.consultarPorCep(cep);
+		} catch (Exception e) {
+			throw new ServicoException(e.getMessage());
 		}
 	}
 
@@ -150,30 +173,47 @@ public class EnderecoServico extends BaseServico {
 	 */
 	public void inicializarEnderecos() throws ServicoException {
 		try {
-			for (int i = 0; i < 10; i++) {
-				Endereco endereco = EnderecoMock.getEndereco();
-				dao.salvar(endereco);
+			List<Endereco> enderecos = obterTodos();
+			
+			if (Util.isNullOrEmpty(enderecos)) {
+				//registros aleatorios para volume
+				for (int i = 0; i < 10; i++) {
+					Endereco endereco = EnderecoMock.getEndereco();
+					dao.salvar(endereco);
+				}
+				
+				//registros controlados para testes
+				dao.salvar(new Endereco.EnderecoBuilder()
+						.cep("14403471")
+						.rua("R. Arnulfo de Lima")
+						.bairro("Vila Santa Cruz")
+						.cidade("Franca")
+						.estado("São Paulo")
+						.build());
+				
+				dao.salvar(new Endereco.EnderecoBuilder()
+						.cep("02047000")
+						.rua("R. Maria Prestes Maia")
+						.bairro("Vila Guilherme")
+						.cidade("São Paulo")
+						.estado("São Paulo")
+						.build());
 			}
-			
-			dao.salvar(new Endereco.EnderecoBuilder()
-					.cep("14403471")
-					.rua("R. Arnulfo de Lima")
-					.bairro("Vila Santa Cruz")
-					.cidade("Franca")
-					.estado("São Paulo")
-					.build());
-			
-			dao.salvar(new Endereco.EnderecoBuilder()
-					.cep("02047000")
-					.rua("R. Maria Prestes Maia")
-					.bairro("Vila Guilherme")
-					.cidade("São Paulo")
-					.estado("São Paulo")
-					.build());
-			
 		} catch (Exception e) {
 			throw new ServicoException(e.getMessage());
 		}
 	}
 
+	public BuscaEnderecoRetorno obterTodos(BuscaEnderecoEnvio buscaEnderecoEnvio) {
+		BuscaEnderecoRetorno retorno = new BuscaEnderecoRetorno();
+		try {
+			List<Endereco> enderecos = dao.consultarTodos();
+			retorno = new BuscaEnderecoRetorno(ECodigoRetorno.SUCESSO.getCodigo(), "Busca realizada.", enderecos) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Erro ao buscar endereços");
+			retorno = new BuscaEnderecoRetorno(ECodigoRetorno.ERRO.getCodigo(), "Erro ao buscar endereços.") ;
+		}
+		return retorno;
+	}
 }

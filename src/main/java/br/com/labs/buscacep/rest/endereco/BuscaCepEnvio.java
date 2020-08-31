@@ -1,5 +1,6 @@
-package br.com.labs.buscacep.rest.cep;
+package br.com.labs.buscacep.rest.endereco;
 
+import br.com.labs.buscacep.rest.BaseEnvio;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
@@ -8,27 +9,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BuscaCepEnvio implements Serializable {
+public class BuscaCepEnvio extends BaseEnvio implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "login")
-	@Getter @Setter private String login;
-
-	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "senha")
-	@Getter @Setter private String senha;
-
-	@JsonInclude(Include.NON_EMPTY)
 	@XmlElement(name = "cep")
 	@Getter @Setter private String cep;
-
-	public BuscaCepEnvio() {
-		
+	
+	public BuscaCepEnvio(String login, String senha) {
+		super(login, senha);
 	}
+	
 }

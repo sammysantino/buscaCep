@@ -5,15 +5,15 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import br.com.labs.buscacep.dao.EnderecoDAO;
-import br.com.labs.buscacep.mock.model.EnderecoMock;
-import br.com.labs.buscacep.model.Endereco;
+import br.com.labs.buscacep.entidade.Endereco;
+import br.com.labs.buscacep.entidade.mock.EnderecoMock;
 import br.com.labs.buscacep.rest.ECodigoRetorno;
-import br.com.labs.buscacep.rest.cep.BuscaCepEnvio;
-import br.com.labs.buscacep.rest.cep.BuscaCepRetorno;
-import br.com.labs.buscacep.rest.cep.InsereEnderecoEnvio;
-import br.com.labs.buscacep.rest.cep.InsereEnderecoRetorno;
-import br.com.labs.buscacep.service.AutorizacaoServico;
-import br.com.labs.buscacep.service.EnderecoServico;
+import br.com.labs.buscacep.rest.endereco.BuscaCepEnvio;
+import br.com.labs.buscacep.rest.endereco.BuscaCepRetorno;
+import br.com.labs.buscacep.rest.endereco.InsereEnderecoEnvio;
+import br.com.labs.buscacep.rest.endereco.InsereEnderecoRetorno;
+import br.com.labs.buscacep.servico.AutorizacaoServico;
+import br.com.labs.buscacep.servico.EnderecoServico;
 import br.com.labs.buscacep.util.Util;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class EnderecoServicoTest {
 		envio.setCep("ABCDEFGHIJKLMNOPQRS");
 		BuscaCepRetorno retorno = null;
 		try {
-			retorno = enderecoServico.obterPorCep(envio);
+			retorno = enderecoServico.buscarPorCep(envio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,7 +65,7 @@ public class EnderecoServicoTest {
 		BuscaCepRetorno retorno = null;
 		try {
 			Mockito.when(enderecoDao.consultarPorCep(envio.getCep())).thenReturn(endereco);
-			retorno = enderecoServico.obterPorCep(envio);
+			retorno = enderecoServico.buscarPorCep(envio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,7 +82,7 @@ public class EnderecoServicoTest {
 		envio.setCep(Util.gerarCep());
 		BuscaCepRetorno retorno = null;
 		try {
-			retorno = enderecoServico.obterPorCep(envio);
+			retorno = enderecoServico.buscarPorCep(envio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,6 @@
-package br.com.labs.buscacep.mock.model;
+package br.com.labs.buscacep.entidade.mock;
 
-import br.com.labs.buscacep.model.Endereco;
+import br.com.labs.buscacep.entidade.Endereco;
 import br.com.labs.buscacep.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,11 +40,11 @@ public final class EnderecoMock {
 		cidadesPorUf.put("Mato Grosso do Sul", cidades);
 		
 		cidades = Arrays.asList("Rio de Janeiro ", "Paraty", "Rio das Ostras", "Búzios");
-		cidadesPorUf.put("", cidades);
+		cidadesPorUf.put("Rio de Janeiro", cidades);
 		
 		tiposlogradouros = Arrays.asList("Rua", "Avenida", "Alameda", "Travessa");
-		nomesLogradouros = Arrays.asList("", "Avenida", "Alameda", "Travessa");
-		nomesBairros = Arrays.asList("", "Avenida", "Alameda", "Travessa");
+		nomesLogradouros = Arrays.asList("Rua", "Avenida", "Alameda", "Travessa");
+		nomesBairros = Arrays.asList("Jardim Aurora", "Parque das Alamandas", "Centro", "Jardim do Vale");
 	}
 	
 	public static Endereco getEndereco() {
