@@ -111,7 +111,7 @@ Response: *codigo_retorno e mensagem_retorno são obrigatórios*
 
 <details><summary><b>/rest/cep/buscarTodos</b></summary>
 
-*@POST* Busca todas as informações de CEP da base de dados, neste escopo foi criado somente para auxiliar no caso de haver testes controlados, onde uma consulta pode auxiliar a visualização dos dados disponíveis na base em aderência com as regras mandatórias (ex. substituição de caracteres por 0).
+*@GET* Busca todas as informações de CEP da base de dados, neste escopo foi criado somente para auxiliar no caso de haver testes controlados, onde uma consulta pode auxiliar a visualização dos dados disponíveis na base em aderência com as regras mandatórias (ex. substituição de caracteres por 0).
 
 Request: *todos os campos são obrigatórios*
 ```json
