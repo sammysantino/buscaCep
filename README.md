@@ -4,7 +4,7 @@ Um exemplo simples de API rest para consulta de informações a partir do cep. P
 
 
 ## Motivação
-Este projetó é requisito mandatório em um processo seletivo, e, adicionalmente, uma boa oportunidade para contribuir dividindo um pouco de código.
+Este projeto é requisito mandatório em um processo seletivo, e, adicionalmente, uma boa oportunidade para contribuir dividindo um pouco de código.
 
 
 ## Escopo
@@ -32,16 +32,14 @@ Para rodar o projeto você vai precisar de:
 * [Eclipse](https://www.eclipse.org/) - IDE utilizada para o desenvolvimento
 * [Wildfly](https://www.wildfly.org/) - Servidor de aplicações, ou outro de sua preferência
 * [Maven](https://maven.apache.org/) - Gerenciamento de Dependências
-* [Lombok](https://projectlombok.org/) - Pra o código ficar menos verboso. É uma biblioteca, mas precisa executar o jar ou instalar o plugin para que funcione ok.
+* [Lombok](https://projectlombok.org/) - Pra o código ficar menos verboso. É uma biblioteca, mas precisa executar o jar ou instalar o plugin para que funcione.
 * Algum servidor de banco de dados que a JPA dê suporte. Eu utilizei o [PostgreSQL](https://www.postgresql.org/).
 
 
 ## Arquitetura
-A decisão de utilizar esta arquitetura foi orgânica, uma vez que já tinha utilizado algo semelhante anteriormente e consegui levantar o ambiente sem dificuldades.
+A decisão de utilizar esta arquitetura foi orgânica, uma vez que já utilizo estruturas parecidas no meu dia a dia, e consego levantar o ambiente sem dificuldades. E, dado o contexto de desenvolvimento da aplicação, vale ressaltar que me senti mais segura em adotar uma estrutura que já conhecia, a arriscar em algo tão importante.
 A estrutura do código tem base no modelo em camadas.
 
-<img src="https://i.ibb.co/GPZsnRp/Critical-to-quality-tree-1-1.png title="ilustração das camadas do sistema" alt="ilustração das camadas do sistema">
-                                                                                                               
 * A interface de comunicação com o sistema são os recursos do webservice;
 * A responsabilidade das regras de negócio está nas classes de serviço;
 * As entidades mapeiam os dados persistentes;
@@ -55,7 +53,7 @@ As bibliotecas utilizadas para escrever o código foram:
 
 
 ## Linguagem
-Neste projeto eu optei em utilizar java por eu ter maior familiaridade com a linguagem, tanto com o paradigma e abstração, quanto com as bibliotecas e recursos da IDE, o que me deixou mais confiante para utilizá-la. Além deste motivo, Java é uma linguagem que tem mais de 20 anos, "sobreviveu" a muitas mudanças. É escalável, confiável, gratuita, e, ainda hoje, é uma das linguagens portáveis com maior quantidade e qualidade em frameworks que nos permite explorar muitas possibilidades, de aplicações pequenas a ecossistemas complexos. Tudo depende da necessidade.
+Neste projeto eu optei em utilizar java por ter maior familiaridade com a linguagem, paradigma, abstração, bibliotecas e recursos da IDE, o que me deixou mais confiante nesta escolha. Além disso Java é uma linguagem que tem mais de 20 anos, "sobreviveu" a muitas mudanças. É escalável, confiável, gratuita, e, ainda hoje, é uma das linguagens portáveis com maior quantidade e qualidade em frameworks que nos permite explorar muitas possibilidades, de aplicações pequenas a ecossistemas complexos, o que me encoraja ainda mais a utilizá-la.
 
 
 ## Estratégia de Desenvolvimento
@@ -71,14 +69,22 @@ Meu primeiro objetivo foi produzir o mínimo produto viável em termos de códig
 
 
 ## Sobre o Funcionamento da API
-A API foi construída para gerar alguns registros padrão no banco assim que o projeto é inicializado. Não foi possível concluir o módulo de autorização / autenticação, **por este motivo as requisições devem ser feitas sempre passando login = admin e senha = admin**. 
-Nas requisi
+A API foi construída para gerar alguns registros padrão no banco assim que o projeto é inicializado. Não foi possível concluir o módulo de autorização / autenticação, **por este motivo as requisições devem ser feitas sempre passando login = admin e senha = admin**.
+
+### Códigos de retorno customizados
+1. SUCESSO - a ação requisitada foi efetuada;
+2. VALIDAÇÃO - a ação requisitada não pôde ser efetuada, pois um ou mais itens não estão aderentes com o esperado;
+3. ERRO - ocorreu um erro ao tentar executar a ação requisitada;
+
+
+### Recursos
 
 <details><summary><b>/rest/cep/inserir</b></summary>
 
 *@POST* Insere informações de CEP, neste escopo foi criado somente para auxiliar no caso de haver testes controlados, onde um CEP específico pode ser necessário.
 
-Request
+
+Request: *todos os campos são obrigatórios*
 ```json
 {
 "login": "admin",
@@ -92,7 +98,7 @@ Request
 }
 ```
 
-Response
+Response: *codigo_retorno e mensagem_retorno são obrigatórios*
 ```json
 {
     "codigo_retorno": 1,
@@ -107,7 +113,7 @@ Response
 
 *@POST* Busca todas as informações de CEP da base de dados, neste escopo foi criado somente para auxiliar no caso de haver testes controlados, onde uma consulta pode auxiliar a visualização dos dados disponíveis na base em aderência com as regras mandatórias (ex. substituição de caracteres por 0).
 
-Request
+Request: *todos os campos são obrigatórios*
 ```json
 {
 "login": "admin",
@@ -115,7 +121,7 @@ Request
 }
 ```
 
-Response
+Response: *codigo_retorno e mensagem_retorno são obrigatórios*
 ```json
 {
     "codigo_retorno": 1,
@@ -146,7 +152,7 @@ Response
 
 *@POST* Busca as informações referentes ao CEP passado na requisição. Caso não localize, substitui sequencialmente, da direita para a esquerda, os caracteres diferentes de zero, por zero. Caso mesmo assim não localize, retorna mensagem informando que o CEP não foi localizado. Caso localize retorna as informações do CEP e caso haja algum dado não aderente na requisição, retorna uma mensagem informativa.
 
-1. Request
+1. Request: *todos os campos são obrigatórios*
 ```json
 {
 "login": "admin",
@@ -155,7 +161,7 @@ Response
 }
 ```
 
-1. Response
+1. Response: *codigo_retorno e mensagem_retorno são obrigatórios*
 ```json
 {
     "codigo_retorno": 1,
@@ -163,7 +169,7 @@ Response
 }
 ```
 
-2. Request
+2. Request: *todos os campos são obrigatórios*
 ```json
 {
 "login": "admin",
@@ -172,7 +178,7 @@ Response
 }
 ```
 
-2. Response
+2. Response: *codigo_retorno e mensagem_retorno são obrigatórios*
 ```json
 {
     "codigo_retorno": 1,
@@ -187,7 +193,7 @@ Response
 }
 ```
 
-3. Request
+3. Request: *todos os campos são obrigatórios*
 ```json
 {
 "login": "admin",
@@ -196,7 +202,7 @@ Response
 }
 ```
 
-3. Response
+3. Response: *codigo_retorno e mensagem_retorno são obrigatórios*
 ```json
 {
     "codigo_retorno": 2,
