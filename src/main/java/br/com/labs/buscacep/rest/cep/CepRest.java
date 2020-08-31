@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/endereco")
+@Path("/cep")
 public class CepRest extends BaseRest implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -61,7 +61,7 @@ public class CepInformacaoServico extends BaseServico<CepInformacao> {
 				}
 			
 				if (Util.isNullOrEmpty(buscaCepEnvio.getCep())) {
-					mensagem.append("CepInformacao é obrigatório. ");
+					mensagem.append("Cep é obrigatório. ");
 				} else  {
 					cep = buscaCepEnvio
 							.getCep()
@@ -69,7 +69,7 @@ public class CepInformacaoServico extends BaseServico<CepInformacao> {
 							.replaceAll(" ", "");
 					
 					if (cep.length() != 8 || Util.removerCaracteresNaoNumericos(cep).length() != 8) {
-						mensagem.append("CepInformacao inválido. ");
+						mensagem.append("Cep inválido. ");
 					}
 				}
 			}

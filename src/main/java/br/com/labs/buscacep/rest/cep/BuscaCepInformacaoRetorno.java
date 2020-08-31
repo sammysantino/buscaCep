@@ -22,7 +22,7 @@ public class BuscaCepInformacaoRetorno extends BaseRetorno implements Serializab
 	private static final long serialVersionUID = 1L;
 
 	@JsonInclude(Include.NON_EMPTY)
-	@XmlElement(name = "cep")
+	@XmlElement(name = "ceps")
 	@Getter @Setter private List<CepInformacao> ceps;
 
 	public BuscaCepInformacaoRetorno(Integer codigoRetorno, String mensagemRetorno) {
