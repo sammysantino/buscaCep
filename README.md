@@ -146,7 +146,7 @@ Response
 
 *@POST* Busca as informações referentes ao CEP passado na requisição. Caso não localize, substitui sequencialmente, da direita para a esquerda, os caracteres diferentes de zero, por zero. Caso mesmo assim não localize, retorna mensagem informando que o CEP não foi localizado. Caso localize retorna as informações do CEP e caso haja algum dado não aderente na requisição, retorna uma mensagem informativa.
 
-Request
+1. Request
 ```json
 {
 "login": "admin",
@@ -155,7 +155,7 @@ Request
 }
 ```
 
-Response
+1. Response
 ```json
 {
     "codigo_retorno": 1,
@@ -163,7 +163,7 @@ Response
 }
 ```
 
-Request
+2. Request
 ```json
 {
 "login": "admin",
@@ -172,7 +172,7 @@ Request
 }
 ```
 
-Response
+2. Response
 ```json
 {
     "codigo_retorno": 1,
@@ -187,7 +187,7 @@ Response
 }
 ```
 
-Request
+3. Request
 ```json
 {
 "login": "admin",
@@ -196,7 +196,7 @@ Request
 }
 ```
 
-Response
+3. Response
 ```json
 {
     "codigo_retorno": 2,
